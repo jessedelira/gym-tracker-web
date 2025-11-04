@@ -4,7 +4,7 @@ import axios from 'axios';
 type UpdateUserPasswordProps = {
   currentPassword: string;
   newPassword: string;
-}
+};
 
 async function updateUserPassword({
   currentPassword,

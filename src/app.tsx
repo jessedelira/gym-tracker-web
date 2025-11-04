@@ -27,9 +27,14 @@ export default function App() {
               <Route path="/signup" element={<SignUp />} />
               <Route path="/settings" element={<Settings />} />
               <Route path="/settings/account" element={<ManageAccount />} />
-              <Route path="/training/routines" element={<div>route training hehe</div>}/>
-              <Route path="/training/sessions" element={<div>session training hehe</div>}/>
-
+              <Route
+                path="/training/routines"
+                element={<div>route training hehe</div>}
+              />
+              <Route
+                path="/training/sessions"
+                element={<div>session training hehe</div>}
+              />
             </Route>
           </Routes>
         </Router>
