@@ -2,6 +2,7 @@ import { useMutation, type UseMutationOptions } from '@tanstack/react-query';
 import axios from 'axios';
 import { useAuth } from '../auth/use-auth';
 import z from 'zod';
+import { UserSchema } from '../../contexts/user';
 
 type RegisterUserRequest = {
   username: string;
@@ -13,10 +14,7 @@ type RegisterUserRequest = {
 
 const RegisterUserResponseSchema = z.object({
   success: z.boolean(),
-  user: z.object({
-    id: z.string(),
-    username: z.string(),
-  }),
+  user: UserSchema.nullable(),
 });
 
 export type RegisterUserResponse = z.infer<typeof RegisterUserResponseSchema>;
@@ -30,6 +28,8 @@ async function registerUser(
       input,
       { withCredentials: true },
     );
+
+    console.log(data);
 
     // ✅ Validate the API response with Zod
     return RegisterUserResponseSchema.parse(data);

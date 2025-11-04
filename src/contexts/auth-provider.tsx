@@ -1,15 +1,12 @@
 import { type ReactNode, useEffect, useState } from 'react';
 import { AuthContext } from './auth-context';
-import type { User } from './user';
+import { UserSchema, type User } from './user';
 import axios from 'axios';
 import { z } from 'zod';
 
 const VerifySessionResponseDtoSchema = z.object({
   authenticated: z.boolean(),
-  user: z.object({
-    id: z.string(),
-    username: z.string(),
-  }),
+  user: UserSchema.nullable(),
 });
 
 export type VerifySessionResponseDto = z.infer<

@@ -1,11 +1,12 @@
 import { useState, type FormEvent } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import PeekPasswordInput from '../components/peek-password-input';
-import AccountCreatedModal from '../components/account-created-modal';
 import { useFetchTimezones } from '../hooks/timezone/use-fetch-timezones';
 
 import { useRegisterUser } from '../hooks/account/use-register-user';
-import axios from 'axios';
+import { useLogin } from '../hooks/auth/use-login';
+import { PeekPasswordInput } from '../components/peek-password-input';
+import { AccountCreatedModal } from '../components/modal/account-created-modal';
+import { useAuth } from '../hooks/auth/use-auth';
 
 export default function SignUp() {
   const [showModal, setShowModal] = useState(false);
@@ -17,44 +18,36 @@ export default function SignUp() {
 
   const navigate = useNavigate();
   const { data: timezones } = useFetchTimezones();
-  const registerUser = useRegisterUser({
-    onSuccess: async (data, variables) => {
-      setShowModal(true);
+  const login = useLogin();
+  const registerUser = useRegisterUser();
+  const { user } = useAuth();
 
-      // Optional: auto-login after showing modal
-      setTimeout(async () => {
-        try {
-          await axios.post(
-            `${import.meta.env.VITE_API_URL}/api/auth/login`,
-            {
-              username: variables.username,
-              password: variables.password,
-            },
-            { withCredentials: true },
-          );
-          navigate('/');
-        } catch (error) {
-          console.error('Auto-login failed:', error);
-        }
-      }, 1500);
-    },
-    onError: (error) => {
-      console.error(
-        'Registration failed:',
-        error.response?.data || error.message,
-      );
-    },
-  });
+  if (user) {
+    navigate('/home');
+  }
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    await registerUser.mutateAsync({
-      username,
-      password,
-      firstName,
-      lastName,
-      timezoneId,
-    });
+
+    try {
+      const response = await registerUser.mutateAsync({
+        username,
+        password,
+        firstName,
+        lastName,
+        timezoneId,
+      });
+
+      if (response.success) {
+        setShowModal(true);
+        await new Promise((resolve) => setTimeout(resolve, 1500));
+
+        await login.mutateAsync({ username, password });
+        navigate('/home');
+      }
+    } catch (error) {
+      console.error('Registration or login failed:', error);
+    }
   };
 
   return (
@@ -115,14 +108,16 @@ export default function SignUp() {
                     className="w-full rounded-xl border-2 border-gray-200 bg-white px-4 py-3 text-gray-900 placeholder-gray-500 transition-all hover:border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 focus:outline-none"
                   />
                 </div>
-
                 <select
                   id="timezone"
+                  required
+                  value={timezoneId}
                   onChange={(e) => {
                     setTimezoneId(e.target.value);
                   }}
                   className="w-full rounded-xl border-2 border-gray-200 bg-white px-4 py-3 text-gray-900 transition-all hover:border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 focus:outline-none"
                 >
+                  <option value="">Select a timezone...</option>
                   {timezones?.map((timezone) => (
                     <option key={timezone.id} value={timezone.id}>
                       {timezone.display} ({timezone.iana})

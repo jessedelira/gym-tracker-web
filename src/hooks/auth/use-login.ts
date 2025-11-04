@@ -2,6 +2,7 @@ import { useMutation } from '@tanstack/react-query';
 import { useAuth } from './use-auth';
 import axios from 'axios';
 import z from 'zod';
+import { UserSchema } from '../../contexts/user';
 
 interface LoginProps {
   username: string;
@@ -10,10 +11,7 @@ interface LoginProps {
 
 const LoginResponseDtoSchema = z.object({
   success: z.boolean(),
-  user: z.object({
-    id: z.string(),
-    username: z.string(),
-  }),
+  user: UserSchema.nullable(),
 });
 
 export type LoginResponseDto = z.infer<typeof LoginResponseDtoSchema>;

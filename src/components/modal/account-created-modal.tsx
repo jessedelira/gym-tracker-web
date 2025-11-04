@@ -1,7 +1,6 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 
-const AccountCreatedModal: React.FC = () => {
+export function AccountCreatedModal() {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center px-4">
       {/* Backdrop */}
@@ -43,6 +42,4 @@ const AccountCreatedModal: React.FC = () => {
       </div>
     </div>
   );
-};
-
-export default AccountCreatedModal;
+}

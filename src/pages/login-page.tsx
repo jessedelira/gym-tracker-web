@@ -1,14 +1,22 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import PeekPasswordInput from '../components/peek-password-input';
+import { useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { useLogin } from '../hooks/auth/use-login';
-import { BaseSolidIcon } from '../components/base-solid-icon';
+import { PeekPasswordInput } from '../components/peek-password-input';
+import { XIcon } from '../components/icon/x-icon';
+import { useAuth } from '../hooks/auth/use-auth';
+import LoadingSpinner from '../components/loading-spinner';
 
 export default function Login() {
   const [showErrorMessage, setShowErrorMessage] = useState(false);
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const { mutateAsync: login } = useLogin();
+  const navigate = useNavigate();
+  const { user, isLoading } = useAuth();
+
+  useEffect(() => {
+    if (user && !isLoading) navigate('/home');
+  }, [user, isLoading, navigate]);
 
   const handleSignInSubmit = async (e: React.FormEvent) => {
     try {
@@ -22,6 +30,10 @@ export default function Login() {
   const handleCloseErrorMessage = () => {
     setShowErrorMessage(false);
   };
+
+  if (isLoading) {
+    return <LoadingSpinner />;
+  }
 
   return (
     <main className="min-h-screen bg-gray-50 px-4">
@@ -52,9 +64,7 @@ export default function Login() {
                 className="ml-3 flex h-6 w-6 items-center justify-center rounded-full hover:bg-red-100"
                 type="button"
               >
-                <BaseSolidIcon size={5}>
-                  <path d="M6.28 5.22a.75.75 0 0 0-1.06 1.06L8.94 10l-3.72 3.72a.75.75..." />
-                </BaseSolidIcon>
+                <XIcon className="h-4 w-4" />
               </button>
             </div>
           )}

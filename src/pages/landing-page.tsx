@@ -1,32 +1,42 @@
 import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../hooks/auth/use-auth';
+import { GitHubLandingIcon } from '../components/icon/landing/github-landing-icon';
+import { CircledCheckMarkLandingIcon } from '../components/icon/landing/circled-check-mark-landing-icon';
+import { LineGraphLandingIcon } from '../components/icon/landing/line-graph-landing-icon';
+import { ClipboardLandingIcon } from '../components/icon/landing/clipboard-landing-icon';
+import { InformationLandingCard } from '../components/icon/landing/information-landing-card';
 
 export default function Landing() {
   const navigate = useNavigate();
+  const { user } = useAuth();
+
+  if (user) {
+    navigate('/home');
+  }
 
   return (
     <main className="landing-page bg-gray-50">
       <div className="mx-auto max-w-7xl px-4 pb-8 sm:px-6 lg:px-8">
+        {/* Header */}
         <div className="flex flex-col items-center justify-center pt-24 pb-12">
-          <div className="w-full max-w-md">
-            <div className="text-center">
-              <h1 className="text-5xl font-semibold tracking-tight text-gray-900">
-                Gym Tracker
-              </h1>
-              <p className="mt-6 text-xl text-gray-600">
-                Your fitness journey, simplified.
-              </p>
-            </div>
+          <div className="w-full max-w-md text-center">
+            <h1 className="text-5xl font-semibold tracking-tight text-gray-900">
+              Gym Tracker
+            </h1>
+            <p className="mt-6 text-xl text-gray-600">
+              Your fitness journey, simplified.
+            </p>
 
             <div className="mt-12 space-y-4">
-              <button
-                onClick={() => navigate('/login')}
-                className="w-full rounded-2xl bg-blue-600 px-8 py-4 text-base font-medium text-white shadow-md transition-all hover:bg-blue-700 hover:shadow-lg"
+              <Link
+                to="/login"
+                className="block w-full rounded-2xl bg-blue-600 px-8 py-4 text-center text-base font-medium text-white shadow-sm transition-colors hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:outline-none"
               >
                 Sign In
-              </button>
+              </Link>
               <Link
                 to="/signup"
-                className="block w-full rounded-2xl border-2 border-gray-200 bg-white px-8 py-4 text-center text-base font-medium text-gray-700 shadow-sm transition-all hover:border-gray-300 hover:bg-gray-50"
+                className="block w-full rounded-2xl border-2 border-gray-200 bg-white px-8 py-4 text-center text-base font-medium text-gray-700 shadow-sm transition-colors hover:border-gray-300 hover:bg-gray-50 focus:ring-2 focus:ring-gray-300 focus:ring-offset-2 focus:outline-none"
               >
                 Create Account
               </Link>
@@ -34,100 +44,68 @@ export default function Landing() {
           </div>
         </div>
 
-        <div className="">
-          <div className="mx-auto max-w-3xl space-y-12">
-            <div className="transform-gpu rounded-3xl bg-white p-8 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md">
-              <div className="mb-6 inline-flex rounded-2xl bg-blue-50 p-4 transition-all group-hover:bg-blue-100">
-                <svg
-                  className="h-8 w-8 text-blue-600"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"
-                  />
-                </svg>
-              </div>
-              <h3 className="text-2xl font-medium text-gray-900">
-                Track Workouts
-              </h3>
-              <p className="mt-3 text-lg leading-relaxed text-gray-500">
-                Log your exercises with a clean, intuitive interface.
-              </p>
-            </div>
+        {/* Features */}
+        <div className="mx-auto max-w-3xl space-y-4">
+          <InformationLandingCard
+            cardTitle={'Track Workouts'}
+            cardDescription={
+              'Log your exercises with a clean, intuitive interface.'
+            }
+            Icon={ClipboardLandingIcon}
+            iconBackgroundStyle={'mb-6 inline-flex rounded-2xl bg-blue-50 p-4'}
+          ></InformationLandingCard>
 
-            {/* Monitor Progress */}
-            <div className="transform-gpu rounded-3xl bg-white p-8 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md">
-              <div className="mb-6 inline-flex rounded-2xl bg-green-50 p-4 transition-all group-hover:bg-green-100">
-                <svg
-                  className="h-8 w-8 text-green-600"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M16 8v8m-4-5v5m-4-2v2m-2 4h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
-                  />
-                </svg>
-              </div>
-              <h3 className="text-2xl font-medium text-gray-900">
-                Monitor Progress
-              </h3>
-              <p className="mt-3 text-lg leading-relaxed text-gray-500">
-                Visualize your improvement over time.
-              </p>
-            </div>
+          {/* Monitor Progress */}
+          <InformationLandingCard
+            cardTitle={'Monitor Progress'}
+            cardDescription={'mb-6 inline-flex rounded-2xl bg-green-50 p-4'}
+            Icon={LineGraphLandingIcon}
+            iconBackgroundStyle={'Visualize your improvement over time.'}
+          ></InformationLandingCard>
 
-            <div className="transform-gpu rounded-3xl bg-white p-8 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md">
-              <div className="mb-6 inline-flex rounded-2xl bg-purple-50 p-4 transition-all group-hover:bg-purple-100">
-                <svg
-                  className="h-8 w-8 text-purple-600"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-                  />
-                </svg>
-              </div>
-              <h3 className="text-2xl font-medium text-gray-900">
-                Achieve Goals
-              </h3>
-              <p className="mt-3 text-lg leading-relaxed text-gray-500">
-                Set and reach your fitness targets with confidence.
-              </p>
-            </div>
+          {/* Achieve Goals */}
+          <InformationLandingCard
+            cardTitle={'Achieve Goals'}
+            cardDescription={
+              'Set and reach your fitness targets with confidence.'
+            }
+            Icon={CircledCheckMarkLandingIcon}
+            iconBackgroundStyle={
+              'mb-6 inline-flex rounded-2xl bg-purple-50 p-4'
+            }
+          ></InformationLandingCard>
+        </div>
+
+        {/* Footer */}
+        <footer className="border-t border-gray-100 py-12">
+          <div className="flex flex-col items-center justify-center gap-4 sm:flex-row sm:gap-6">
+            <a
+              href="https://github.com/jessedelira/gym-tracker.app"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-gray-500 transition-colors hover:text-gray-900"
+            >
+              <GitHubLandingIcon />
+              <span className="text-sm font-medium">View App Code</span>
+            </a>
+
+            <span className="hidden text-gray-300 sm:inline">•</span>
+
+            <a
+              href="https://github.com/jessedelira/gym-tracker.api"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-gray-500 transition-colors hover:text-gray-900"
+            >
+              <GitHubLandingIcon />
+              <span className="text-sm font-medium">View API Code</span>
+            </a>
           </div>
-        </div>
 
-        <div className="py-16 text-center">
-          <Link
-            to="https://github.com/jessedelira/gym-tracker.app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-3 rounded-full bg-gray-50 px-6 py-3 text-gray-600 transition-all hover:bg-gray-100 hover:text-gray-900"
-          >
-            <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
-              <path
-                fillRule="evenodd"
-                clipRule="evenodd"
-                d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.885 1.845 1.245 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.92 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"
-              />
-            </svg>
-            <span className="text-sm font-medium">View on GitHub</span>
-          </Link>
-        </div>
+          <p className="mt-6 text-center text-xs text-gray-400">
+            © {new Date().getFullYear()} Gym Tracker by Jesse De Lira
+          </p>
+        </footer>
       </div>
     </main>
   );
