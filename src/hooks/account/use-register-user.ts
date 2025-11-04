@@ -1,8 +1,7 @@
-import { useMutation, type UseMutationOptions } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 import axios from 'axios';
 import { useAuth } from '../auth/use-auth';
-import z from 'zod';
-import { UserSchema } from '../../contexts/user';
+import type { User } from '../../types/user';
 
 type RegisterUserRequest = {
   username: string;
@@ -12,50 +11,34 @@ type RegisterUserRequest = {
   timezoneId: string;
 };
 
-const RegisterUserResponseSchema = z.object({
-  success: z.boolean(),
-  user: UserSchema.nullable(),
-});
-
-export type RegisterUserResponse = z.infer<typeof RegisterUserResponseSchema>;
+export type RegisterUserResponse = {
+  success: boolean;
+  user: User | null;
+};
 
 async function registerUser(
   input: RegisterUserRequest,
 ): Promise<RegisterUserResponse> {
   try {
-    const { data } = await axios.post(
+    const { data } = await axios.post<RegisterUserResponse>(
       `${import.meta.env.VITE_API_URL}/api/auth/register`,
       input,
       { withCredentials: true },
     );
 
-    console.log(data);
-
-    // ✅ Validate the API response with Zod
-    return RegisterUserResponseSchema.parse(data);
+    return data;
   } catch {
     throw new Error('Unexpected error occurred');
   }
 }
 
-export function useRegisterUser(
-  options?: UseMutationOptions<
-    RegisterUserResponse,
-    Error,
-    RegisterUserRequest
-  >,
-) {
+export function useRegisterUser() {
   const { setUser } = useAuth();
 
-  return useMutation<RegisterUserResponse, Error, RegisterUserRequest>({
+  return useMutation({
     mutationFn: registerUser,
-    onSuccess: (data, variables, context) => {
+    onSuccess: (data) => {
       setUser(data.user);
-      options?.onSuccess?.(data, variables, context);
     },
-    onError: (error, variables, context) => {
-      options?.onError?.(error, variables, context);
-    },
-    ...options,
   });
 }

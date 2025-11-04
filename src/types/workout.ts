@@ -1,4 +1,4 @@
-export type workout = {
+export type Workout = {
   id: string;
   reps: number | null;
   sets: number | null;

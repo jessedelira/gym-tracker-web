@@ -1,20 +1,17 @@
 import { useMutation } from '@tanstack/react-query';
 import { useAuth } from './use-auth';
 import axios from 'axios';
-import z from 'zod';
-import { UserSchema } from '../../contexts/user';
+import type { User } from '../../types/user';
 
-interface LoginProps {
+type LoginProps = {
   username: string;
   password: string;
-}
+};
 
-const LoginResponseDtoSchema = z.object({
-  success: z.boolean(),
-  user: UserSchema.nullable(),
-});
-
-export type LoginResponseDto = z.infer<typeof LoginResponseDtoSchema>;
+export type LoginResponseDto = {
+  success: boolean;
+  user: User | null;
+};
 
 async function loginUser(input: LoginProps): Promise<LoginResponseDto> {
   try {
@@ -23,7 +20,7 @@ async function loginUser(input: LoginProps): Promise<LoginResponseDto> {
       input,
       { withCredentials: true },
     );
-    return LoginResponseDtoSchema.parse(data);
+    return data;
   } catch {
     throw new Error('Unexpected error occurred');
   }

@@ -1,7 +1,7 @@
 import { useMutation } from '@tanstack/react-query';
 import axios from 'axios';
 
-interface UpdateUserPasswordProps {
+type UpdateUserPasswordProps = {
   currentPassword: string;
   newPassword: string;
 }

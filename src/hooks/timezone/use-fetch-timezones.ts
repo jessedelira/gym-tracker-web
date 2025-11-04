@@ -1,25 +1,18 @@
 import axios from 'axios';
 import { useQuery } from '@tanstack/react-query';
-import z from 'zod';
 
-const FetchTimezonesResponseDtoSchema = z
-  .object({
-    id: z.string(),
-    iana: z.string(),
-    display: z.string(),
-  })
-  .array();
-
-export type FetchTimezonesResponseDto = z.infer<
-  typeof FetchTimezonesResponseDtoSchema
->;
+export type FetchTimezonesResponseDto = {
+  id: string;
+  iana: string;
+  display: string;
+}[];
 
 async function fetchTimezones(): Promise<FetchTimezonesResponseDto> {
   try {
-    const { data } = await axios.get(
+    const { data } = await axios.get<FetchTimezonesResponseDto>(
       `${import.meta.env.VITE_API_URL}/api/timezone`,
     );
-    return FetchTimezonesResponseDtoSchema.parse(data);
+    return data;
   } catch {
     throw new Error('Unexpected error occurred');
   }
