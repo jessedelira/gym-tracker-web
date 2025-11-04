@@ -1,6 +1,6 @@
 import type { Exercise } from './exercise';
-import type { workout } from './workout';
+import type { Workout } from './workout';
 
-export type WorkoutWithExercise = workout & {
+export type WorkoutWithExercise = Workout & {
   exercise: Exercise;
 };
