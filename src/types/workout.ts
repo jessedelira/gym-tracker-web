@@ -1,3 +1,5 @@
+import type { Exercise } from './exercise';
+
 export type Workout = {
   id: string;
   reps: number | null;
@@ -7,4 +9,5 @@ export type Workout = {
   exerciseId: string;
   sessionId: string;
   userId: string;
+  exercise?: Exercise;
 };

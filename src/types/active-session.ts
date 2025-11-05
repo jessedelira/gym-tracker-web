@@ -1,7 +1,9 @@
+import type { Session } from './session';
+
 export type ActiveSession = {
-  session: {
-    name: string;
-    id: string;
-  };
-  startedAt: Date;
-};
+  id: string;
+  sessionId: string;
+  userId: string;
+  startedAt: string;
+  session?: Session;
+} | null;

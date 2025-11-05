@@ -1,14 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-
-export type ActiveRoutine = {
-  id: string;
-  createdAt: string;
-  name: string;
-  description: string;
-  isActive: boolean;
-  userId: string;
-} | null;
+import type { ActiveRoutine } from '../workout/use-workout-data';
 
 async function fetchActiveRoutine(): Promise<ActiveRoutine> {
   try {

@@ -1,17 +1,5 @@
-import { Preference } from './preference';
-
-export type UserPreference = {
-  id: string;
-  userId: string;
-  preference: Preference;
-  enabled: boolean;
-};
-
-export type UserSetting = {
-  id: string;
-  userId: string;
-  timezoneId: string;
-};
+import type { UserPreference } from './user-preference';
+import type { UserSetting } from './user-setting';
 
 export type User = {
   id: string;
@@ -20,6 +8,6 @@ export type User = {
   lastName: string;
   dateCreated: string;
   hasSeenLatestChangelog: boolean;
-  userPreferences: UserPreference[];
-  userSetting: UserSetting | null;
+  userPreferences?: UserPreference[];
+  userSetting?: UserSetting;
 };

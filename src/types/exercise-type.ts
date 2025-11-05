@@ -1,1 +1,1 @@
-export type ExerciseType = 'WEIGHTED' | 'DURATION' | 'BODYWEIGHT' | 'CARDIO';
+export type ExerciseType = 'WEIGHTED' | 'DURATION';

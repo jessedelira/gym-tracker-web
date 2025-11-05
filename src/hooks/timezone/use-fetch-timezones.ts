@@ -1,15 +1,10 @@
 import axios from 'axios';
 import { useQuery } from '@tanstack/react-query';
+import type { TimezoneMap } from '../../types/timezone-map';
 
-export type FetchTimezonesResponseDto = {
-  id: string;
-  iana: string;
-  display: string;
-}[];
-
-async function fetchTimezones(): Promise<FetchTimezonesResponseDto> {
+async function fetchTimezones(): Promise<TimezoneMap[]> {
   try {
-    const { data } = await axios.get<FetchTimezonesResponseDto>(
+    const { data } = await axios.get<TimezoneMap[]>(
       `${import.meta.env.VITE_API_URL}/api/timezone`,
     );
     return data;
