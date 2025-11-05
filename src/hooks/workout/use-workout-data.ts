@@ -12,13 +12,7 @@ import type { ActiveSession } from '../../types/active-session';
 import type { User } from '../../types/user';
 import type { Routine } from '../../types/routine';
 import type { Workout } from '../../types/workout';
-
-// --- Types ---
-export type AvailableSession = {
-  id: string;
-  name: string;
-  description: string | null;
-};
+import type { Session } from '../../types/session';
 
 // --- Discriminated Union for Hook State ---
 type WorkoutDataState =
@@ -31,7 +25,7 @@ type WorkoutDataState =
     }
   | {
       state: 'availableSessions';
-      sessionsForToday: AvailableSession[];
+      sessionsForToday: Session[];
       actions: {
         handleStartSessionClick: (sessionId: string) => Promise<void>;
       };
@@ -68,9 +62,7 @@ export function useWorkoutData(user: User): WorkoutDataState {
     activeSession?.session?.id,
   );
 
-  console.log('here', workoutsForActiveSession);
-
-  // 👇 NEW: fetch today's sessions if no active session
+  // fetch today's sessions if no active session
   const {
     data: sessionsForToday,
     refetch: refetchWorkouts,
