@@ -8,13 +8,17 @@ import { useCompleteSession } from '../completed-session/use-complete-session';
 import { useFetchRoutineCount } from '../routine/use-fetch-routine-count';
 import { useFetchWorkoutsForSession } from './use-fetch-workouts-for-session';
 import { useFetchSessionsForToday } from '../session/use-fetch-sessions-for-today';
+import { useFetchCompletedSessionIds } from '../completed-session/use-fetch-completed-session-ids';
+
 import type { ActiveSession } from '../../types/active-session';
 import type { User } from '../../types/user';
 import type { Routine } from '../../types/routine';
 import type { Workout } from '../../types/workout';
 import type { Session } from '../../types/session';
 
-// --- Discriminated Union for Hook State ---
+/**
+ * Discriminated union for all workout-related data states.
+ */
 type WorkoutDataState =
   | { state: 'loading' }
   | { state: 'noRoutine' }
@@ -26,6 +30,7 @@ type WorkoutDataState =
   | {
       state: 'availableSessions';
       sessionsForToday: Session[];
+      completedSessionIds: string[];
       actions: {
         handleStartSessionClick: (sessionId: string) => Promise<void>;
       };
@@ -44,11 +49,13 @@ type WorkoutDataState =
       };
     };
 
-// --- Hook Implementation ---
+/**
+ * Main hook that orchestrates workout session logic.
+ */
 export function useWorkoutData(user: User): WorkoutDataState {
   const hasConfettiPreference = isConfettiEnabled(user);
 
-  // Queries
+  // --- Queries ---
   const { data: routineCountData, isLoading: isRoutineCountLoading } =
     useFetchRoutineCount();
 
@@ -62,18 +69,17 @@ export function useWorkoutData(user: User): WorkoutDataState {
     activeSession?.session?.id,
   );
 
-  // fetch today's sessions if no active session
-  const {
-    data: sessionsForToday,
-    refetch: refetchWorkouts,
-    isLoading: isSessionsForTodayLoading,
-  } = useFetchSessionsForToday(!activeSession && !!activeRoutine);
+  const { data: sessionsForToday, isLoading: isSessionsForTodayLoading } =
+    useFetchSessionsForToday(!activeSession && !!activeRoutine);
 
-  // Mutations
+  const { data: completedSessionIds, isLoading: isCompletedLoading } =
+    useFetchCompletedSessionIds(!activeSession && !!activeRoutine);
+
+  // --- Mutations ---
   const startSession = useStartActiveSession();
   const completeSession = useCompleteSession();
 
-  // Handlers
+  // --- Handlers ---
   const handleStartSessionClick = async (sessionId: string) => {
     await startSession.mutateAsync(sessionId);
     await refetchActiveSession();
@@ -85,14 +91,15 @@ export function useWorkoutData(user: User): WorkoutDataState {
     if (hasConfettiPreference) showConfetti();
 
     await completeSession.mutateAsync(activeSession.sessionId);
-    void Promise.all([refetchActiveSession(), refetchWorkouts()]);
+    await refetchActiveSession();
   };
 
-  // Derived UI states
+  // --- Derived UI states ---
   if (
     isRoutineCountLoading ||
     isActiveRoutineLoading ||
-    isSessionsForTodayLoading
+    isSessionsForTodayLoading ||
+    isCompletedLoading
   ) {
     return { state: 'loading' };
   }
@@ -109,15 +116,14 @@ export function useWorkoutData(user: User): WorkoutDataState {
       meta: { activeSession, activeRoutine },
     };
 
-  // 👇 If there are sessions today but not started yet
   if (sessionsForToday && sessionsForToday.length > 0)
     return {
       state: 'availableSessions',
       sessionsForToday,
+      completedSessionIds: completedSessionIds ?? [],
       actions: { handleStartSessionClick },
       meta: { activeRoutine },
     };
 
-  // 👇 Otherwise, no sessions for today
   return { state: 'noSessions', meta: { activeRoutine } };
 }

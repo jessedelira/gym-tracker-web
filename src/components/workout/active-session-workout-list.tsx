@@ -1,12 +1,12 @@
 import type { ActiveSession } from '../../types/active-session';
+import type { Workout } from '../../types/workout';
 import type { WorkoutCompletionMap } from '../../types/workout-completion-map';
-import type { WorkoutWithExercise } from '../../types/workout-with-exercise';
 import { CurrentSessionElapsedTimer } from '../current-session-elapsed-timer';
 import { WorkoutCard } from './workout-card';
 
 interface WorkoutListProps {
   activeSession: ActiveSession;
-  workoutsForActiveSession: WorkoutWithExercise[];
+  workoutsForActiveSession: Workout[];
   handleCheckboxChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   handleCompleteSessionClick: () => Promise<void>;
   isEveryWorkoutComplete: boolean;
@@ -27,9 +27,9 @@ export function ActiveSessionWorkoutList({
         {/* Active session header */}
         <div className="mb-4 w-full rounded-lg bg-gray-50 p-4">
           <h1 className="text-base font-medium text-gray-900">
-            {activeSession.session.name}
+            {activeSession?.session?.name}
           </h1>
-          {activeSession.startedAt && (
+          {activeSession?.startedAt && (
             <CurrentSessionElapsedTimer
               startedAtDate={new Date(activeSession.startedAt)}
             />
@@ -42,13 +42,13 @@ export function ActiveSessionWorkoutList({
             <WorkoutCard
               key={workout.id}
               workoutId={workout.id}
-              exerciseName={workout.exercise.name}
+              exerciseName={workout.exercise?.name ?? ''}
               onChangeHandler={handleCheckboxChange}
               sets={workout.sets}
               weightInLbs={workout.weightLbs}
               reps={workout.reps}
               durationSeconds={workout.durationSeconds}
-              exerciseType={workout.exercise.type}
+              exerciseType={workout.exercise?.type}
               isChecked={workoutProgressMap[workout.id] || false}
             />
           ))}
