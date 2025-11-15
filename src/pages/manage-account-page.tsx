@@ -15,7 +15,7 @@ export default function ManageAccount() {
 
   useEffect(() => {
     if (!user && !isUserLoading) navigate('/');
-  }, [user, navigate, isUserLoading]);
+  }, [user, isUserLoading, navigate]);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();

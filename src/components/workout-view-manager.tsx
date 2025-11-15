@@ -39,8 +39,7 @@ export function WorkoutViewManager({ user }: WorkoutViewManagerProps) {
     return <NoActiveRoutineView />;
 
   if (
-    workoutData.state === WorkoutDataStateType.NO_SESSIONS &&
-    workoutData.meta
+    workoutData.state === WorkoutDataStateType.NO_SESSIONS
   )
     return (
       <NoSessionsOnCurrentDateView
@@ -49,8 +48,7 @@ export function WorkoutViewManager({ user }: WorkoutViewManagerProps) {
     );
 
   if (
-    workoutData.state === WorkoutDataStateType.AVAILABLE_SESSIONS &&
-    workoutData
+    workoutData.state === WorkoutDataStateType.AVAILABLE_SESSIONS
   ) {
     return (
       <div className="flex min-h-screen w-full flex-col items-center bg-gray-50">

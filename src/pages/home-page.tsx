@@ -10,7 +10,7 @@ export default function Home() {
 
   useEffect(() => {
     if (!user && !isUserLoading) navigate('/');
-  }, [user, navigate, isUserLoading]);
+  }, [user, isUserLoading, navigate]);
 
   if (isUserLoading || !user) {
     return <LoadingSpinner />;
