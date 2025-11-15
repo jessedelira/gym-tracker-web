@@ -5,7 +5,7 @@ import { useUpdateUserPassword } from '../hooks/account/use-update-user-password
 import LoadingSpinner from '../components/loading-spinner';
 
 export default function ManageAccount() {
-  const { user, isLoading } = useAuth();
+  const { user, isUserLoading } = useAuth();
   const [username, setUsername] = useState(user?.username || '');
   const [currentPassword, setCurrentPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
@@ -14,8 +14,8 @@ export default function ManageAccount() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!user && !isLoading) navigate('/');
-  }, [user, navigate, isLoading]);
+    if (!user && !isUserLoading) navigate('/');
+  }, [user, navigate, isUserLoading]);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -27,7 +27,7 @@ export default function ManageAccount() {
     setConfirmNewPassword('');
   }
 
-  if (isLoading || !user) {
+  if (isUserLoading || !user) {
     return <LoadingSpinner />;
   }
 

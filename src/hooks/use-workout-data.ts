@@ -86,19 +86,16 @@ export function useWorkoutData(user: User): WorkoutDataState {
 
   const {
     data: workoutsForActiveSession,
-    refetch: refetchWorkoutsForActiveSession,
   } = useFetchWorkoutsForSession(activeSession?.session?.id);
 
   const {
     data: sessionsForToday,
     isLoading: isSessionsForTodayLoading,
-    refetch: refetchSessionsForToday,
   } = useFetchSessionsForToday(!activeSession && !!activeRoutine);
 
   const {
     data: completedSessionIds,
     isLoading: isCompletedLoading,
-    refetch: refetchCompletedSessionIds,
   } = useFetchCompletedSessionIds(!activeSession && !!activeRoutine);
 
   // --- Mutations ---
@@ -112,23 +109,13 @@ export function useWorkoutData(user: User): WorkoutDataState {
   };
 
   const handleCompleteSessionClick = async () => {
-    console.log('first line inside of handleCompleteSessionClick');
     if (!activeSession) return;
 
-    console.log('check to see if the use has Confetti enabled');
     if (hasConfettiPreference) showConfetti();
 
-    console.log('calling to create completedSession');
     await completeSession.mutateAsync(activeSession.sessionId);
-    console.log('call finished');
 
-    console.log('refetching active session');
     await refetchActiveSession();
-    await refetchWorkoutsForActiveSession();
-    await refetchSessionsForToday();
-    await refetchCompletedSessionIds();
-
-    console.log('at the end of the handle complete session click');
   };
 
   // --- Derived UI states ---

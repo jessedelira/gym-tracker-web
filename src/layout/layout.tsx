@@ -3,9 +3,9 @@ import { useAuth } from '../hooks/auth/use-auth';
 import NavigationBar from '../components/navigation-bar';
 
 export default function Layout() {
-  const { user, isLoading } = useAuth();
+  const { user, isUserLoading } = useAuth();
 
-  if (!user && !isLoading) {
+  if (!user && !isUserLoading) {
     return (
       <div className="flex h-screen flex-col">
         <main className="flex-1 overflow-y-auto">

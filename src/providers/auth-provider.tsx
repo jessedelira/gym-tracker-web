@@ -10,7 +10,7 @@ export type VerifySessionResponseDto = {
 
 export default function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [isUserLoading, setIsUserLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const fetchSession = async () => {
@@ -29,7 +29,7 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
         console.error('Failed to verify session:', error);
         setUser(null);
       } finally {
-        setIsLoading(false);
+        setIsUserLoading(false);
       }
     };
 
@@ -37,7 +37,7 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, setUser, isLoading }}>
+    <AuthContext.Provider value={{ user, setUser, isUserLoading }}>
       {children}
     </AuthContext.Provider>
   );

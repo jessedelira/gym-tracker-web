@@ -16,10 +16,8 @@ interface WorkoutViewManagerProps {
 }
 
 export function WorkoutViewManager({ user }: WorkoutViewManagerProps) {
-  const workoutData = useWorkoutData(user);
-
-  console.log(workoutData);
-
+  const workoutData = useWorkoutData(user);  
+  
   const {
     workoutProgressMap,
     isEveryWorkoutComplete,

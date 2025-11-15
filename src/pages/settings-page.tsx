@@ -12,17 +12,22 @@ import { LanguageIcon } from '../components/icon/language-icon';
 import { PreferencesIcon } from '../components/icon/preferences-icon';
 
 export default function Settings() {
-  const { user, isLoading } = useAuth();
+  const { user, isUserLoading } = useAuth();
   const navigate = useNavigate();
   const { mutate: logout } = useLogout();
 
   useEffect(() => {
-    if (!user && !isLoading) navigate('/');
-  }, [user, isLoading, navigate]);
+    if (!user && !isUserLoading) navigate('/');
+  }, [user, isUserLoading, navigate]);
 
-  if (isLoading || !user) {
+  if (isUserLoading || !user) {
     return <LoadingSpinner />;
   }
+  
+  function test() {
+    console.log('hi')
+  }
+
 
   return (
     <div className="flex h-full flex-col pb-4">
@@ -116,7 +121,7 @@ export default function Settings() {
       {/* Logout */}
       <div className="mx-4 mt-6">
         <button
-          onClick={() => logout}
+          onClick={() => logout()}
           className="flex w-full items-center justify-center rounded-lg border border-red-200 bg-white p-4 text-red-600 hover:bg-red-50"
         >
           <div className="flex items-center space-x-3">

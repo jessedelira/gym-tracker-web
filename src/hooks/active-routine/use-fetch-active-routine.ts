@@ -1,10 +1,10 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import type { ActiveRoutine } from '../use-workout-data';
+import type { Routine } from '../../types/routine';
 
-async function fetchActiveRoutine(): Promise<ActiveRoutine> {
+async function fetchActiveRoutine(): Promise<Routine> {
   try {
-    const { data } = await axios.get<ActiveRoutine>(
+    const { data } = await axios.get<Routine>(
       `${import.meta.env.VITE_API_URL}/api/routine/active`,
       { withCredentials: true },
     );

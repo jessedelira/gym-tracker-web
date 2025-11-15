@@ -12,11 +12,11 @@ export default function Login() {
   const [password, setPassword] = useState<string>('');
   const { mutateAsync: login } = useLogin();
   const navigate = useNavigate();
-  const { user, isLoading } = useAuth();
+  const { user, isUserLoading } = useAuth();
 
   useEffect(() => {
-    if (user && !isLoading) navigate('/home');
-  }, [user, isLoading, navigate]);
+    if (user && !isUserLoading) navigate('/home');
+  }, [user, isUserLoading, navigate]);
 
   const handleSignInSubmit = async (e: React.FormEvent) => {
     try {
@@ -31,7 +31,7 @@ export default function Login() {
     setShowErrorMessage(false);
   };
 
-  if (isLoading) {
+  if (isUserLoading) {
     return <LoadingSpinner />;
   }
 

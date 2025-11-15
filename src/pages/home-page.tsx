@@ -6,13 +6,13 @@ import { WorkoutViewManager } from '../components/workout-view-manager';
 
 export default function Home() {
   const navigate = useNavigate();
-  const { user, isLoading } = useAuth();
+  const { user, isUserLoading } = useAuth();
 
   useEffect(() => {
-    if (!user && !isLoading) navigate('/');
-  }, [user, navigate, isLoading]);
+    if (!user && !isUserLoading) navigate('/');
+  }, [user, navigate, isUserLoading]);
 
-  if (isLoading || !user) {
+  if (isUserLoading || !user) {
     return <LoadingSpinner />;
   }
 

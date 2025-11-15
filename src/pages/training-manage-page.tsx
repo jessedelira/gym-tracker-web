@@ -6,17 +6,17 @@ import TrainingManageLink from '../components/training-manage-link';
 import { useFetchActiveRoutine } from '../hooks/active-routine/use-fetch-active-routine';
 
 export default function TrainingManagePage() {
-  const { user, isLoading } = useAuth();
+  const { user, isUserLoading } = useAuth();
   const navigate = useNavigate();
 
   const { data: activeRoutine, isLoading: isRoutineLoading } =
     useFetchActiveRoutine(!!user);
 
   useEffect(() => {
-    if (!user && !isLoading) navigate('/');
-  }, [user, isLoading, navigate]);
+    if (!user && !isUserLoading) navigate('/');
+  }, [user, isUserLoading, navigate]);
 
-  if (isLoading || !user) {
+  if (isUserLoading || !user) {
     return <LoadingSpinner />;
   }
 
