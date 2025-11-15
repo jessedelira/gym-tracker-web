@@ -6,14 +6,12 @@ export async function fetchCompletedSessionIds(
 ): Promise<string[]> {
   try {
     const { data } = await axios.get<string[]>(
-      `${import.meta.env.VITE_API_URL}/api/completed-session/list`,
+      `${import.meta.env.VITE_API_URL}/api/completed-session/list?userUtcDateTime=${userUTCDateTime.toISOString()}`,
       {
         withCredentials: true,
-        params: { userUTCDateTime: userUTCDateTime.toISOString() },
       },
     );
 
-    console.log('[fetchCompletedSessionIds]', data);
     return data;
   } catch (err) {
     console.error('[fetchCompletedSessionIds] Error', err);

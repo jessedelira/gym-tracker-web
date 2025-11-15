@@ -4,7 +4,7 @@ import type { Workout } from '../../types/workout';
 // Each workout ID maps to whether it’s completed
 export type WorkoutCompletionMap = Record<string, boolean>;
 
-export function useWorkoutProgress(workouts?: Workout[]) {
+export function useLocalStorageWorkoutProgress(workouts?: Workout[]) {
   const [workoutProgressMap, setWorkoutProgressMap] =
     useState<WorkoutCompletionMap>({});
   const [isEveryWorkoutComplete, setIsEveryWorkoutComplete] = useState(false);

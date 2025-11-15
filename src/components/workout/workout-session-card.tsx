@@ -2,7 +2,7 @@ import type { Session } from '../../types/session';
 
 interface WorkoutSessionCardProps {
   session: Session;
-  listOfCompletedSessionIds: string[] | null;
+  listOfCompletedSessionIds: string[];
   onStartSession: (sessionId: string) => void;
 }
 
