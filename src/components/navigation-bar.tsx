@@ -8,7 +8,7 @@ type ValidRoutes = 'home' | 'training' | 'settings' | '';
 
 function isValidRoute(route: string): route is ValidRoutes {
   return ['home', 'training', 'settings', ''].includes(route);
-};
+}
 
 export default function NavigationBar() {
   const [currentURL, setCurrentURL] = useState<ValidRoutes>('');

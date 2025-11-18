@@ -23,7 +23,7 @@ export default function App() {
           <Routes>
             <Route element={<Layout />}>
               <Route path="/" element={<Landing />} />
-              <Route path="/about" element={<About/>}/>
+              <Route path="/about" element={<About />} />
               <Route path="/login" element={<Login />} />
               <Route path="/home" element={<Home />} />
               <Route path="/training" element={<TrainingManagePage />} />

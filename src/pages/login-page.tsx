@@ -5,6 +5,7 @@ import { PeekPasswordInput } from '../components/peek-password-input';
 import { XIcon } from '../components/icon/x-icon';
 import { useAuth } from '../hooks/auth/use-auth';
 import LoadingSpinner from '../components/loading-spinner';
+import { XMarkIcon } from '@heroicons/react/24/outline';
 
 export default function Login() {
   const [showErrorMessage, setShowErrorMessage] = useState(false);
@@ -64,7 +65,7 @@ export default function Login() {
                 className="ml-3 flex h-6 w-6 items-center justify-center rounded-full hover:bg-red-100"
                 type="button"
               >
-                <XIcon className="h-4 w-4" />
+                <XMarkIcon className="size-4" />
               </button>
             </div>
           )}
