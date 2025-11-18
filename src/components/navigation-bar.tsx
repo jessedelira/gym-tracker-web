@@ -6,7 +6,7 @@ import { ManageNavBarIcon } from './icon/nav-bar/manage-nav-bar-icon';
 
 type ValidRoutes = 'home' | 'training' | 'settings' | '';
 
-const isValidRoute = (route: string): route is ValidRoutes => {
+function isValidRoute(route: string): route is ValidRoutes {
   return ['home', 'training', 'settings', ''].includes(route);
 };
 
