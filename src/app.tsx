@@ -10,6 +10,7 @@ import Home from './pages/home-page';
 import ManageAccount from './pages/manage-account-page';
 import Settings from './pages/settings-page';
 import TrainingManagePage from './pages/training-manage-page';
+import ManageRoutines from './pages/manage-routines';
 
 const queryClient = new QueryClient();
 
@@ -27,10 +28,7 @@ export default function App() {
               <Route path="/signup" element={<SignUp />} />
               <Route path="/settings" element={<Settings />} />
               <Route path="/settings/account" element={<ManageAccount />} />
-              <Route
-                path="/training/routines"
-                element={<div>route training hehe</div>}
-              />
+              <Route path="/training/routines" element={<ManageRoutines />} />
               <Route
                 path="/training/sessions"
                 element={<div>session training hehe</div>}

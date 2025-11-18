@@ -79,36 +79,36 @@ export function useWorkoutData(user: User): WorkoutDataState {
     useFetchRoutineCount();
 
   const { data: activeRoutine, isLoading: isActiveRoutineLoading } =
-    useFetchActiveRoutine(!isRoutineCountLoading);
+    useFetchActiveRoutine(
+      !isRoutineCountLoading &&
+        routineCountData !== undefined &&
+        routineCountData.count > 0,
+    );
 
   const { data: activeSession, refetch: refetchActiveSession } =
     useFetchActiveSession(!!activeRoutine);
 
-  const {
-    data: workoutsForActiveSession,
-  } = useFetchWorkoutsForSession(activeSession?.session?.id);
+  const { data: workoutsForActiveSession } = useFetchWorkoutsForSession(
+    activeSession?.session?.id,
+  );
 
-  const {
-    data: sessionsForToday,
-    isLoading: isSessionsForTodayLoading,
-  } = useFetchSessionsForToday(!activeSession && !!activeRoutine);
+  const { data: sessionsForToday, isLoading: isSessionsForTodayLoading } =
+    useFetchSessionsForToday(!activeSession && !!activeRoutine);
 
-  const {
-    data: completedSessionIds,
-    isLoading: isCompletedLoading,
-  } = useFetchCompletedSessionIds(!activeSession && !!activeRoutine);
+  const { data: completedSessionIds, isLoading: isCompletedLoading } =
+    useFetchCompletedSessionIds(!activeSession && !!activeRoutine);
 
   // --- Mutations ---
   const startSession = useStartActiveSession();
   const completeSession = useCompleteSession();
 
   // --- Handlers ---
-  const handleStartSessionClick = async (sessionId: string) => {
+  async function handleStartSessionClick(sessionId: string) {
     await startSession.mutateAsync(sessionId);
     await refetchActiveSession();
-  };
+  }
 
-  const handleCompleteSessionClick = async () => {
+  async function handleCompleteSessionClick() {
     if (!activeSession) return;
 
     if (hasConfettiPreference) showConfetti();
@@ -116,7 +116,7 @@ export function useWorkoutData(user: User): WorkoutDataState {
     await completeSession.mutateAsync(activeSession.sessionId);
 
     await refetchActiveSession();
-  };
+  }
 
   // --- Derived UI states ---
   if (

@@ -16,8 +16,8 @@ interface WorkoutViewManagerProps {
 }
 
 export function WorkoutViewManager({ user }: WorkoutViewManagerProps) {
-  const workoutData = useWorkoutData(user);  
-  
+  const workoutData = useWorkoutData(user);
+
   const {
     workoutProgressMap,
     isEveryWorkoutComplete,
@@ -38,18 +38,14 @@ export function WorkoutViewManager({ user }: WorkoutViewManagerProps) {
   if (workoutData.state === WorkoutDataStateType.NO_ACTIVE_ROUTINE)
     return <NoActiveRoutineView />;
 
-  if (
-    workoutData.state === WorkoutDataStateType.NO_SESSIONS
-  )
+  if (workoutData.state === WorkoutDataStateType.NO_SESSIONS)
     return (
       <NoSessionsOnCurrentDateView
         routineName={workoutData.meta.activeRoutine.name}
       />
     );
 
-  if (
-    workoutData.state === WorkoutDataStateType.AVAILABLE_SESSIONS
-  ) {
+  if (workoutData.state === WorkoutDataStateType.AVAILABLE_SESSIONS) {
     return (
       <div className="flex min-h-screen w-full flex-col items-center bg-gray-50">
         <div className="w-full max-w-2xl space-y-3 px-4 pt-4">
