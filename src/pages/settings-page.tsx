@@ -23,11 +23,6 @@ export default function Settings() {
   if (isUserLoading || !user) {
     return <LoadingSpinner />;
   }
-  
-  function test() {
-    console.log('hi')
-  }
-
 
   return (
     <div className="flex h-full flex-col pb-4">
