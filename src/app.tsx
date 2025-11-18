@@ -10,7 +10,7 @@ import Home from './pages/home-page';
 import ManageAccount from './pages/manage-account-page';
 import Settings from './pages/settings-page';
 import TrainingManagePage from './pages/training-manage-page';
-import ManageRoutines from './pages/manage-routines';
+import ManageRoutines from './pages/manage-routines-page';
 
 const queryClient = new QueryClient();
 
