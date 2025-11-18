@@ -17,8 +17,8 @@ export default function Layout() {
 
   return (
     <div className="flex h-screen flex-col">
-      {/* Scrollable main content area */}
-      <main className="flex-1 overflow-y-auto pb-16">
+      {/* Scrollable main content area, pb-19 since that is the height of the navbar */}
+      <main className="flex-1 overflow-y-auto pb-19">
         <Outlet />
       </main>
 
