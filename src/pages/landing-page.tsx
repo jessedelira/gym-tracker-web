@@ -6,6 +6,7 @@ import { ClipboardIcon } from '@heroicons/react/24/outline';
 import { ChartBarSquareIcon } from '@heroicons/react/24/outline';
 import { CheckCircleIcon } from '@heroicons/react/24/outline';
 import { CodeBracketIcon } from '@heroicons/react/24/outline';
+import { InformationCircleIcon } from '@heroicons/react/24/outline';
 
 export default function Landing() {
   const navigate = useNavigate();
@@ -86,8 +87,18 @@ export default function Landing() {
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 text-gray-500 transition-colors hover:text-gray-900"
             >
-              <CodeBracketIcon className='size-6'/>
+              <CodeBracketIcon className="size-6" />
               <span className="text-sm font-medium">Source Code</span>
+            </a>
+
+            <a
+              href="https://github.com/jessedelira/gym-tracker-web"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-gray-500 transition-colors hover:text-gray-900"
+            >
+              <InformationCircleIcon className="size-6" />
+              <span className="text-sm font-medium">What is this?</span>
             </a>
           </div>
 
