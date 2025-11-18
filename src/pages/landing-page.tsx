@@ -1,10 +1,11 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../hooks/auth/use-auth';
 import { GitHubLandingIcon } from '../components/icon/landing/github-landing-icon';
-import { CircledCheckMarkLandingIcon } from '../components/icon/landing/circled-check-mark-landing-icon';
-import { LineGraphLandingIcon } from '../components/icon/landing/line-graph-landing-icon';
-import { ClipboardLandingIcon } from '../components/icon/landing/clipboard-landing-icon';
 import { InformationLandingCard } from '../components/icon/landing/information-landing-card';
+import { ClipboardIcon } from '@heroicons/react/24/outline';
+import { ChartBarSquareIcon } from '@heroicons/react/24/outline';
+import { CheckCircleIcon } from '@heroicons/react/24/outline';
+import { CodeBracketIcon } from '@heroicons/react/24/outline';
 
 export default function Landing() {
   const navigate = useNavigate();
@@ -51,16 +52,16 @@ export default function Landing() {
             cardDescription={
               'Log your exercises with a clean, intuitive interface.'
             }
-            Icon={ClipboardLandingIcon}
+            Icon={<ClipboardIcon className="size-8 stroke-blue-600" />}
             iconBackgroundStyle={'mb-6 inline-flex rounded-2xl bg-blue-50 p-4'}
           ></InformationLandingCard>
 
           {/* Monitor Progress */}
           <InformationLandingCard
             cardTitle={'Monitor Progress'}
-            cardDescription={'mb-6 inline-flex rounded-2xl bg-green-50 p-4'}
-            Icon={LineGraphLandingIcon}
-            iconBackgroundStyle={'Visualize your improvement over time.'}
+            cardDescription={'Visualize your improvement over time.'}
+            Icon={<ChartBarSquareIcon className="size-8 stroke-green-600" />}
+            iconBackgroundStyle={'mb-6 inline-flex rounded-2xl bg-green-50 p-4'}
           ></InformationLandingCard>
 
           {/* Achieve Goals */}
@@ -69,7 +70,7 @@ export default function Landing() {
             cardDescription={
               'Set and reach your fitness targets with confidence.'
             }
-            Icon={CircledCheckMarkLandingIcon}
+            Icon={<CheckCircleIcon className="size-8 stroke-purple-600" />}
             iconBackgroundStyle={
               'mb-6 inline-flex rounded-2xl bg-purple-50 p-4'
             }
@@ -80,30 +81,18 @@ export default function Landing() {
         <footer className="border-t border-gray-100 py-12">
           <div className="flex flex-col items-center justify-center gap-4 sm:flex-row sm:gap-6">
             <a
-              href="https://github.com/jessedelira/gym-tracker.app"
+              href="https://github.com/jessedelira/gym-tracker-web"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 text-gray-500 transition-colors hover:text-gray-900"
             >
-              <GitHubLandingIcon />
-              <span className="text-sm font-medium">View App Code</span>
-            </a>
-
-            <span className="hidden text-gray-300 sm:inline">•</span>
-
-            <a
-              href="https://github.com/jessedelira/gym-tracker.api"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 text-gray-500 transition-colors hover:text-gray-900"
-            >
-              <GitHubLandingIcon />
-              <span className="text-sm font-medium">View API Code</span>
+              <CodeBracketIcon className='size-6'/>
+              <span className="text-sm font-medium">Source Code</span>
             </a>
           </div>
 
           <p className="mt-6 text-center text-xs text-gray-400">
-            © {new Date().getFullYear()} Gym Tracker by Jesse De Lira
+            Made in Chicago ❤️
           </p>
         </footer>
       </div>
