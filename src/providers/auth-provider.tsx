@@ -9,7 +9,7 @@ export type VerifySessionResponseDto = {
 };
 
 function isValidUnprotectedRoute(route: string): boolean {
-  return ['/about', '', '/login', '/signup'].includes(route);
+  return ['/about', '/login', '/signup'].includes(route);
 }
 
 export default function AuthProvider({ children }: { children: ReactNode }) {

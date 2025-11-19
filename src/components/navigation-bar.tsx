@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useLocation, Link } from 'react-router-dom';
 import { GearNavBarIcon } from './icon/nav-bar/gear-nav-bar-icon';
-import { HomeNavBarIcon } from './icon/nav-bar/home-nav-bar-icon';
 import { ManageNavBarIcon } from './icon/nav-bar/manage-nav-bar-icon';
+import { HomeIcon } from '@heroicons/react/24/outline';
 
 type ValidRoutes = 'home' | 'training' | 'settings' | '';
 
@@ -34,11 +34,8 @@ export default function NavigationBar() {
             : 'text-gray-500 hover:text-gray-800'
         }`}
       >
-        <HomeNavBarIcon
-          heightValue="6"
-          widthValue="6"
-          fill="none"
-          strokeColor={currentURL === 'home' ? 'black' : 'currentColor'}
+        <HomeIcon
+          className={'size-6 ' + currentURL === 'home' ? 'stroke-black' : ''}
         />
         <span className="mt-1 text-xs font-medium">Home</span>
       </Link>

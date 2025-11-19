@@ -1,20 +1,22 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../hooks/auth/use-auth';
-import { GitHubLandingIcon } from '../components/icon/landing/github-landing-icon';
-import { InformationLandingCard } from '../components/icon/landing/information-landing-card';
 import { ClipboardIcon } from '@heroicons/react/24/outline';
 import { ChartBarSquareIcon } from '@heroicons/react/24/outline';
 import { CheckCircleIcon } from '@heroicons/react/24/outline';
 import { CodeBracketIcon } from '@heroicons/react/24/outline';
 import { InformationCircleIcon } from '@heroicons/react/24/outline';
+import { InformationLandingCard } from '../components/landing/information-landing-card';
+import { useEffect } from 'react';
 
 export default function Landing() {
   const navigate = useNavigate();
-  const { user } = useAuth();
+  const { user, isUserLoading } = useAuth();
 
-  if (user) {
-    navigate('/home');
-  }
+  useEffect(() => {
+    if (user && !isUserLoading) {
+      navigate('/home');
+    }
+  }, [user, isUserLoading, navigate]);
 
   return (
     <main className="landing-page bg-gray-50">
