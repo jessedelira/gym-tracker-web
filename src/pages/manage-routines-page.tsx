@@ -10,6 +10,7 @@ import { useSetActiveRoutine } from '../hooks/active-routine/use-set-active-rout
 import { useFetchRoutines } from '../hooks/routine/use-fetch-routines';
 import { PencilIcon } from '@heroicons/react/24/outline';
 import { StarIcon } from '@heroicons/react/24/outline';
+import { PlusIcon } from '@heroicons/react/24/outline';
 
 const ACTIVE_STAR_CLASSES = 'h-6 w-6 text-yellow-400 fill-current';
 const INACTIVE_STAR_CLASSES =
@@ -108,19 +109,7 @@ export default function ManageRoutines() {
       ) : !routineData || routineData.length === 0 ? (
         <div className="mt-8 text-center">
           <div className="mb-4 inline-flex rounded-full bg-blue-100 p-4">
-            <svg
-              className="h-6 w-6 text-blue-600"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M12 6v6m0 0v6m0-6h6m-6 0H6"
-              />
-            </svg>
+            <PlusIcon className="size-6 stroke-blue-600" />
           </div>
           <h2 className="text-gray-600">
             Create your first routine to get started
