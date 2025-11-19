@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../hooks/auth/use-auth';
-import LoadingSpinner from '../components/loading-spinner';
+import LoadingSpinner from '../components/loading/loading-spinner';
 import { useFetchActiveRoutine } from '../hooks/active-routine/use-fetch-active-routine';
 
 import type { Routine } from '../types/routine';

@@ -3,7 +3,7 @@ import {
   WorkoutDataStateType,
 } from '../hooks/use-workout-data';
 import type { User } from '../types/user';
-import LoadingSpinner from './loading-spinner';
+import LoadingSpinner from './loading/loading-spinner';
 import { NoActiveRoutineView } from './view/no-active-routine-view';
 import { WelcomeNewUserView } from './view/welcome-new-user-view';
 import { NoSessionsOnCurrentDateView } from './workout/no-sessions-on-current-date-view';

@@ -2,9 +2,8 @@ import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useLogin } from '../hooks/auth/use-login';
 import { PeekPasswordInput } from '../components/peek-password-input';
-import { XIcon } from '../components/icon/x-icon';
 import { useAuth } from '../hooks/auth/use-auth';
-import LoadingSpinner from '../components/loading-spinner';
+import LoadingSpinner from '../components/loading/loading-spinner';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 
 export default function Login() {

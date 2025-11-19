@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useLocation, Link } from 'react-router-dom';
-import { GearNavBarIcon } from './icon/nav-bar/gear-nav-bar-icon';
-import { ManageNavBarIcon } from './icon/nav-bar/manage-nav-bar-icon';
 import { HomeIcon } from '@heroicons/react/24/outline';
+import { Cog8ToothIcon } from '@heroicons/react/24/outline';
+import { SquaresPlusIcon } from '@heroicons/react/24/outline';
 
 type ValidRoutes = 'home' | 'training' | 'settings' | '';
 
@@ -35,7 +35,7 @@ export default function NavigationBar() {
         }`}
       >
         <HomeIcon
-          className={'size-6 ' + currentURL === 'home' ? 'stroke-black' : ''}
+          className={`size-6 ${currentURL === 'home' ? 'stroke-black' : ''}`}
         />
         <span className="mt-1 text-xs font-medium">Home</span>
       </Link>
@@ -49,11 +49,8 @@ export default function NavigationBar() {
             : 'text-gray-500 hover:text-gray-800'
         }`}
       >
-        <ManageNavBarIcon
-          heightValue="6"
-          widthValue="6"
-          fill="none"
-          strokeColor={currentURL === 'training' ? 'black' : 'currentColor'}
+        <SquaresPlusIcon
+          className={`size-6 ${currentURL === 'training' ? 'stroke-black' : ''}`}
         />
 
         <span className="mt-1 text-xs font-medium">Manage</span>
@@ -71,11 +68,8 @@ export default function NavigationBar() {
         {/* Red notification dot */}
         <div className="absolute top-1 right-4 h-2 w-2 rounded-full bg-red-500" />
 
-        <GearNavBarIcon
-          heightValue="6"
-          widthValue="6"
-          fill="none"
-          strokeColor={currentURL === 'settings' ? 'black' : 'currentColor'}
+        <Cog8ToothIcon
+          className={`size-6 ${currentURL === 'settings' ? 'stroke-black' : ''}`}
         />
 
         <span className="mt-1 text-xs font-medium">Settings</span>

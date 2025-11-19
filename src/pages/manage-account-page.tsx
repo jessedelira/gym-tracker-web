@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useAuth } from '../hooks/auth/use-auth';
 import { useNavigate } from 'react-router-dom';
 import { useUpdateUserPassword } from '../hooks/account/use-update-user-password';
-import LoadingSpinner from '../components/loading-spinner';
+import LoadingSpinner from '../components/loading/loading-spinner';
 
 export default function ManageAccount() {
   const { user, isUserLoading } = useAuth();
