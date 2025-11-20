@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useAuth } from '../hooks/auth/use-auth';
-import LoadingSpinner from '../components/loading/loading-spinner';
-import { getMonthDDCommaYYYY } from '../utils/date-util';
-import { useLogout } from '../hooks/auth/use-logout';
+import { useAuth } from '../../hooks/auth/use-auth';
+import LoadingSpinner from '../../components/loading/loading-spinner';
+import { getMonthDDCommaYYYY } from '../../utils/date-util';
+import { useLogout } from '../../hooks/auth/use-logout';
 
 import { ChevronRightIcon, UserIcon } from '@heroicons/react/24/outline';
 import { LanguageIcon } from '@heroicons/react/24/outline';
@@ -51,7 +51,7 @@ export default function Settings() {
         {/* Account */}
         <Link
           to="/settings/account"
-          className="flex items-center justify-between p-4 hover:bg-gray-50"
+          className="flex items-center justify-between p-4 "
         >
           <div className="flex items-center space-x-3">
             <UserIcon className="size-5 stroke-gray-500" />
@@ -63,7 +63,7 @@ export default function Settings() {
         {/* Preferences */}
         <Link
           to="/settings/preferences"
-          className="flex items-center justify-between p-4 hover:bg-gray-50"
+          className="flex items-center justify-between p-4"
         >
           <div className="flex items-center space-x-3">
             <Cog8ToothIcon className="size-5 stroke-gray-500" />
@@ -75,7 +75,7 @@ export default function Settings() {
         {/* Changelog */}
         <Link
           to="/settings/changelog"
-          className="flex items-center justify-between p-4 hover:bg-gray-50"
+          className="flex items-center justify-between p-4"
         >
           <div className="flex items-center space-x-3">
             <DocumentTextIcon className="size-5 stroke-gray-500" />
@@ -91,7 +91,7 @@ export default function Settings() {
         {/* Language */}
         <Link
           to="/settings/language"
-          className="flex items-center justify-between p-4 hover:bg-gray-50"
+          className="flex items-center justify-between p-4"
         >
           <div className="flex items-center space-x-3">
             <LanguageIcon className="size-5 stroke-gray-500" />
@@ -105,7 +105,7 @@ export default function Settings() {
       <div className="mx-4 mt-6">
         <button
           onClick={() => logout()}
-          className="flex w-full items-center justify-center rounded-lg border border-red-200 bg-white p-4 text-red-600 hover:bg-red-50"
+          className="flex w-full items-center justify-center rounded-lg border border-red-200 bg-white p-4 text-red-600 "
         >
           <div className="flex items-center space-x-3">
             <ArrowLeftStartOnRectangleIcon className="size-5" />

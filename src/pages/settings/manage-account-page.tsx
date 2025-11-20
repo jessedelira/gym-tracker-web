@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
-import { useAuth } from '../hooks/auth/use-auth';
+import { useAuth } from '../../hooks/auth/use-auth';
 import { useNavigate } from 'react-router-dom';
-import { useUpdateUserPassword } from '../hooks/account/use-update-user-password';
-import LoadingSpinner from '../components/loading/loading-spinner';
+import { useUpdateUserPassword } from '../../hooks/account/use-update-user-password';
+import LoadingSpinner from '../../components/loading/loading-spinner';
 
 export default function ManageAccount() {
   const { user, isUserLoading } = useAuth();
@@ -128,7 +128,7 @@ export default function ManageAccount() {
             <button
               type="submit"
               disabled={updateUserPassword.isPending}
-              className="w-full rounded-lg bg-blue-600 py-3 font-semibold text-white shadow-md transition hover:bg-blue-700 disabled:opacity-50"
+              className="w-full rounded-lg bg-blue-600 py-3 font-semibold text-white shadow-md transition disabled:opacity-50"
             >
               {updateUserPassword.isPending ? 'Updating...' : 'Update Profile'}
             </button>

@@ -1,20 +1,20 @@
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useAuth } from '../hooks/auth/use-auth';
-import LoadingSpinner from '../components/loading/loading-spinner';
-import { useFetchActiveRoutine } from '../hooks/active-routine/use-fetch-active-routine';
+import { useAuth } from '../../hooks/auth/use-auth';
+import LoadingSpinner from '../../components/loading/loading-spinner';
+import { useFetchActiveRoutine } from '../../hooks/active-routine/use-fetch-active-routine';
 
-import type { Routine } from '../types/routine';
-import { useRemoveActiveRoutine } from '../hooks/active-routine/use-remove-active-routine';
-import { useSetActiveRoutine } from '../hooks/active-routine/use-set-active-routine';
-import { useFetchRoutines } from '../hooks/routine/use-fetch-routines';
+import type { Routine } from '../../types/routine';
+import { useRemoveActiveRoutine } from '../../hooks/active-routine/use-remove-active-routine';
+import { useSetActiveRoutine } from '../../hooks/active-routine/use-set-active-routine';
+import { useFetchRoutines } from '../../hooks/routine/use-fetch-routines';
 import { PencilIcon } from '@heroicons/react/24/outline';
 import { StarIcon } from '@heroicons/react/24/outline';
 import { PlusIcon } from '@heroicons/react/24/outline';
 
 const ACTIVE_STAR_CLASSES = 'h-6 w-6 text-yellow-400 fill-current';
 const INACTIVE_STAR_CLASSES =
-  'h-6 w-6 text-gray-400 hover:text-yellow-400 transition-colors';
+  'h-6 w-6 text-gray-400 transition-colors';
 
 export default function ManageRoutines() {
   const { user, isUserLoading } = useAuth();
@@ -69,7 +69,7 @@ export default function ManageRoutines() {
           </h1>
           <Link
             to="/training/routines/create"
-            className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-blue-600 text-white shadow-sm transition-all hover:bg-blue-700"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-blue-600 text-white shadow-sm transition-all "
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -120,7 +120,7 @@ export default function ManageRoutines() {
           {routineData.map((routine) => (
             <div
               key={routine.id}
-              className="rounded-xl border border-gray-200 bg-white p-4 shadow-sm transition-all hover:border-gray-300"
+              className="rounded-xl border border-gray-200 bg-white p-4 shadow-sm transition-all"
             >
               <div className="flex items-start justify-between">
                 <div className="flex-1">
@@ -138,7 +138,7 @@ export default function ManageRoutines() {
                 <div className="ml-4 flex items-center gap-3">
                   <button
                     onClick={() => onStarClick(routine.id)}
-                    className="rounded-lg p-2 transition-all hover:bg-gray-50"
+                    className="rounded-lg p-2 transition-all"
                     title={
                       activeRoutine && routine.id === activeRoutine.id
                         ? 'Active Routine'
@@ -152,8 +152,8 @@ export default function ManageRoutines() {
                     )}
                   </button>
                   <Link
-                    to={`/training/routines/edit/${routine.id}`}
-                    className="rounded-lg p-2 text-gray-600 transition-all hover:bg-gray-100"
+                    to={`/training/routines/${routine.id}`}
+                    className="rounded-lg p-2 text-gray-600 transition-all"
                   >
                     <PencilIcon className="size-5" />
                   </Link>

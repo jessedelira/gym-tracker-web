@@ -34,13 +34,13 @@ export default function Landing() {
             <div className="mt-12 space-y-4">
               <Link
                 to="/login"
-                className="block w-full rounded-2xl bg-blue-600 px-8 py-4 text-center text-base font-medium text-white shadow-sm transition-colors hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:outline-none"
+                className="block w-full rounded-2xl bg-blue-600 px-8 py-4 text-center text-base font-medium text-white shadow-sm transition-colors focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:outline-none"
               >
                 Sign In
               </Link>
               <Link
                 to="/signup"
-                className="block w-full rounded-2xl border-2 border-gray-200 bg-white px-8 py-4 text-center text-base font-medium text-gray-700 shadow-sm transition-colors hover:border-gray-300 hover:bg-gray-50 focus:ring-2 focus:ring-gray-300 focus:ring-offset-2 focus:outline-none"
+                className="block w-full rounded-2xl border-2 border-gray-200 bg-white px-8 py-4 text-center text-base font-medium text-gray-700 shadow-sm transition-colors focus:ring-2 focus:ring-gray-300 focus:ring-offset-2 focus:outline-none"
               >
                 Create Account
               </Link>
@@ -87,7 +87,7 @@ export default function Landing() {
               href="https://github.com/jessedelira/gym-tracker-web"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 text-gray-500 transition-colors hover:text-gray-900"
+              className="inline-flex items-center gap-2 text-gray-500 transition-colors"
             >
               <CodeBracketIcon className="size-6" />
               <span className="text-sm font-medium">Source Code</span>
@@ -97,7 +97,7 @@ export default function Landing() {
               href="https://github.com/jessedelira/gym-tracker-web"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 text-gray-500 transition-colors hover:text-gray-900"
+              className="inline-flex items-center gap-2 text-gray-500 transition-colors "
             >
               <InformationCircleIcon className="size-6" />
               <span className="text-sm font-medium">What is this?</span>

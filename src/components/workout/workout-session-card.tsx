@@ -31,7 +31,7 @@ export function WorkoutSessionCard({
         className={`mt-3 w-full rounded-lg px-4 py-2.5 text-sm font-medium ${
           isCompleted
             ? 'bg-gray-100 text-gray-400'
-            : 'bg-blue-600 text-white hover:bg-blue-700'
+            : 'bg-blue-600 text-white'
         }`}
       >
         {isCompleted ? 'Completed' : 'Start Session'}

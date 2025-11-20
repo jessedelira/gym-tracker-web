@@ -31,7 +31,7 @@ export default function NavigationBar() {
         className={`flex flex-col items-center px-6 py-2 ${
           currentURL === 'home'
             ? 'text-black'
-            : 'text-gray-500 hover:text-gray-800'
+            : 'text-gray-500'
         }`}
       >
         <HomeIcon
@@ -46,7 +46,7 @@ export default function NavigationBar() {
         className={`flex flex-col items-center px-6 py-2 ${
           currentURL === 'training'
             ? 'text-black'
-            : 'text-gray-500 hover:text-gray-800'
+            : 'text-gray-500'
         }`}
       >
         <SquaresPlusIcon
@@ -62,7 +62,7 @@ export default function NavigationBar() {
         className={`relative flex flex-col items-center px-6 py-2 ${
           currentURL === 'settings'
             ? 'text-black'
-            : 'text-gray-500 hover:text-gray-800'
+            : 'text-gray-500 '
         }`}
       >
         {/* Red notification dot */}

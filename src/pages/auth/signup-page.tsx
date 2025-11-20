@@ -1,12 +1,12 @@
 import { useState, type FormEvent } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useFetchTimezones } from '../hooks/timezone/use-fetch-timezones';
+import { useFetchTimezones } from '../../hooks/timezone/use-fetch-timezones';
 
-import { useRegisterUser } from '../hooks/account/use-register-user';
-import { useLogin } from '../hooks/auth/use-login';
-import { PeekPasswordInput } from '../components/peek-password-input';
-import { AccountCreatedModal } from '../components/modal/account-created-modal';
-import { useAuth } from '../hooks/auth/use-auth';
+import { useRegisterUser } from '../../hooks/account/use-register-user';
+import { useLogin } from '../../hooks/auth/use-login';
+import { PeekPasswordInput } from '../../components/peek-password-input';
+import { AccountCreatedModal } from '../../components/modal/account-created-modal';
+import { useAuth } from '../../hooks/auth/use-auth';
 
 export default function SignUp() {
   const [showModal, setShowModal] = useState(false);
@@ -76,7 +76,7 @@ export default function SignUp() {
                   }}
                   placeholder="Username"
                   id="username"
-                  className="w-full rounded-xl border-2 border-gray-200 bg-white px-4 py-3 text-gray-900 placeholder-gray-500 transition-all hover:border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 focus:outline-none"
+                  className="w-full rounded-xl border-2 border-gray-200 bg-white px-4 py-3 text-gray-900 placeholder-gray-500 transition-all focus:border-blue-500 focus:ring-2 focus:ring-blue-200 focus:outline-none"
                   required
                 />
                 <PeekPasswordInput
@@ -96,7 +96,7 @@ export default function SignUp() {
                     onChange={(e) => {
                       setFirstName(e.target.value);
                     }}
-                    className="w-full rounded-xl border-2 border-gray-200 bg-white px-4 py-3 text-gray-900 placeholder-gray-500 transition-all hover:border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 focus:outline-none"
+                    className="w-full rounded-xl border-2 border-gray-200 bg-white px-4 py-3 text-gray-900 placeholder-gray-500 transition-all  focus:border-blue-500 focus:ring-2 focus:ring-blue-200 focus:outline-none"
                   />
                   <input
                     type="text"
@@ -105,7 +105,7 @@ export default function SignUp() {
                     }}
                     placeholder="Last Name"
                     id="lastName"
-                    className="w-full rounded-xl border-2 border-gray-200 bg-white px-4 py-3 text-gray-900 placeholder-gray-500 transition-all hover:border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 focus:outline-none"
+                    className="w-full rounded-xl border-2 border-gray-200 bg-white px-4 py-3 text-gray-900 placeholder-gray-500 transition-all  focus:border-blue-500 focus:ring-2 focus:ring-blue-200 focus:outline-none"
                   />
                 </div>
                 <select
@@ -115,7 +115,7 @@ export default function SignUp() {
                   onChange={(e) => {
                     setTimezoneId(e.target.value);
                   }}
-                  className="w-full rounded-xl border-2 border-gray-200 bg-white px-4 py-3 text-gray-900 transition-all hover:border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 focus:outline-none"
+                  className="w-full rounded-xl border-2 border-gray-200 bg-white px-4 py-3 text-gray-900 transition-all focus:border-blue-500 focus:ring-2 focus:ring-blue-200 focus:outline-none"
                 >
                   <option value="">Select a timezone...</option>
                   {timezones?.map((timezone) => (
@@ -130,14 +130,14 @@ export default function SignUp() {
             {/* Action Buttons */}
             <div className="space-y-4">
               <button
-                className="w-full rounded-2xl bg-blue-600 px-8 py-4 text-base font-medium text-white shadow-md transition-all hover:bg-blue-700 hover:shadow-lg focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:outline-none"
+                className="w-full rounded-2xl bg-blue-600 px-8 py-4 text-base font-medium text-white shadow-md transition-all focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:outline-none"
                 type="submit"
               >
                 Create Account
               </button>
               <Link
                 to="/"
-                className="block w-full rounded-2xl border-2 border-gray-200 bg-white px-8 py-4 text-center text-base font-medium text-gray-700 shadow-sm transition-all hover:border-gray-300 hover:bg-gray-50"
+                className="block w-full rounded-2xl border-2 border-gray-200 bg-white px-8 py-4 text-center text-base font-medium text-gray-700 shadow-sm transition-all"
               >
                 Back to Home
               </Link>

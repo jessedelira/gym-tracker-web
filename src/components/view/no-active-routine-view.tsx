@@ -12,7 +12,7 @@ export function NoActiveRoutineView() {
       </p>
       <Link
         to="/manage/routines"
-        className="rounded-xl bg-blue-600 px-8 py-4 text-base font-medium text-white shadow-md transition-all hover:bg-blue-700 hover:shadow-lg"
+        className="rounded-xl bg-blue-600 px-8 py-4 text-base font-medium text-white shadow-md transition-all"
       >
         Select Active Routine
       </Link>

@@ -66,7 +66,7 @@ export function ActiveSessionWorkoutList({
             <div className="mx-auto w-[90%] max-w-md">
               <button
                 onClick={() => void handleCompleteSessionClick()}
-                className="w-full rounded-xl bg-green-600 px-4 py-4 text-sm font-medium text-white transition-colors hover:bg-green-700"
+                className="w-full rounded-xl bg-green-600 px-4 py-4 text-sm font-medium text-white transition-colors"
               >
                 Complete Workout Session
               </button>

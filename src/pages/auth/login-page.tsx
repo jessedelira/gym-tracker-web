@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useLogin } from '../hooks/auth/use-login';
-import { PeekPasswordInput } from '../components/peek-password-input';
-import { useAuth } from '../hooks/auth/use-auth';
-import LoadingSpinner from '../components/loading/loading-spinner';
+import { useLogin } from '../../hooks/auth/use-login';
+import { PeekPasswordInput } from '../../components/peek-password-input';
+import { useAuth } from '../../hooks/auth/use-auth';
+import LoadingSpinner from '../../components/loading/loading-spinner';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 
 export default function Login() {
@@ -61,7 +61,7 @@ export default function Login() {
               </p>
               <button
                 onClick={handleCloseErrorMessage}
-                className="ml-3 flex h-6 w-6 items-center justify-center rounded-full hover:bg-red-100"
+                className="ml-3 flex h-6 w-6 items-center justify-center rounded-full"
                 type="button"
               >
                 <XMarkIcon className="size-4" />
@@ -75,7 +75,7 @@ export default function Login() {
               placeholder="Username"
               id="username"
               onChange={(e) => setUsername(e.target.value)}
-              className="w-full rounded-xl border-2 border-gray-200 bg-white px-4 py-3 text-gray-900 placeholder-gray-500 transition-all hover:border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 focus:outline-none"
+              className="w-full rounded-xl border-2 border-gray-200 bg-white px-4 py-3 text-gray-900 placeholder-gray-500 transition-all focus:border-blue-500 focus:ring-2 focus:ring-blue-200 focus:outline-none"
               required
             />
             <PeekPasswordInput
@@ -89,14 +89,14 @@ export default function Login() {
           {/* Action Buttons */}
           <div className="space-y-4">
             <button
-              className="w-full rounded-2xl bg-blue-600 px-8 py-4 text-base font-medium text-white shadow-md transition-all hover:bg-blue-700 hover:shadow-lg focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:outline-none"
+              className="w-full rounded-2xl bg-blue-600 px-8 py-4 text-base font-medium text-white shadow-md transition-all focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:outline-none"
               type="submit"
             >
               Sign In
             </button>
             <Link
               to="/"
-              className="block w-full rounded-2xl border-2 border-gray-200 bg-white px-8 py-4 text-center text-base font-medium text-gray-700 shadow-sm transition-all hover:border-gray-300 hover:bg-gray-50"
+              className="block w-full rounded-2xl border-2 border-gray-200 bg-white px-8 py-4 text-center text-base font-medium text-gray-700 shadow-sm transition-all"
             >
               Back to Home
             </Link>

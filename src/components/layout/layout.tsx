@@ -1,6 +1,7 @@
 import { Outlet } from 'react-router-dom';
-import { useAuth } from '../hooks/auth/use-auth';
-import NavigationBar from '../components/navigation-bar';
+import { useAuth } from '../../hooks/auth/use-auth';
+import NavigationBar from '../navigation-bar';
+
 
 export default function Layout() {
   const { user, isUserLoading } = useAuth();
