@@ -1,3 +1,5 @@
+import type { DaysActive } from './days-active';
+
 export type Session = {
   name: string;
   id: string;
@@ -5,4 +7,5 @@ export type Session = {
   description: string | null;
   routineId: string | null;
   createdAt: Date;
+  daysActive?: DaysActive[];
 };

@@ -1,3 +1,5 @@
+import type { Session } from './session';
+
 export type Routine = {
   id: string;
   createdAt: string; // ISO date string from API
@@ -5,4 +7,5 @@ export type Routine = {
   description: string;
   isActive: boolean;
   userId: string;
+  sessions?: Session[];
 };
