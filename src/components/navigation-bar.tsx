@@ -29,9 +29,7 @@ export default function NavigationBar() {
       <Link
         to="/home"
         className={`flex flex-col items-center px-6 py-2 ${
-          currentURL === 'home'
-            ? 'text-black'
-            : 'text-gray-500'
+          currentURL === 'home' ? 'text-black' : 'text-gray-500'
         }`}
       >
         <HomeIcon
@@ -44,9 +42,7 @@ export default function NavigationBar() {
       <Link
         to="/training"
         className={`flex flex-col items-center px-6 py-2 ${
-          currentURL === 'training'
-            ? 'text-black'
-            : 'text-gray-500'
+          currentURL === 'training' ? 'text-black' : 'text-gray-500'
         }`}
       >
         <SquaresPlusIcon
@@ -60,9 +56,7 @@ export default function NavigationBar() {
       <Link
         to="/settings"
         className={`relative flex flex-col items-center px-6 py-2 ${
-          currentURL === 'settings'
-            ? 'text-black'
-            : 'text-gray-500 '
+          currentURL === 'settings' ? 'text-black' : 'text-gray-500'
         }`}
       >
         {/* Red notification dot */}

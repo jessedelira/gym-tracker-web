@@ -43,8 +43,8 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
     }
 
     fetchSession();
-    
-    // TOOD: potential todo where you would place the useEffect 
+
+    // TOOD: potential todo where you would place the useEffect
     // logic to handle the navigation to the landing page if a
     // zuser where not signed in correctly
   }, []);

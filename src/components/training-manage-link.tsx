@@ -13,10 +13,7 @@ const TrainingManageLink: React.FC<TrainingManageLinkProps> = ({
   description,
 }) => {
   return (
-    <Link
-      to={href}
-      className="flex items-center justify-between p-3"
-    >
+    <Link to={href} className="flex items-center justify-between p-3">
       <div className="flex flex-col space-y-0.5">
         <span className="text-base font-medium text-gray-900">{title}</span>
         <span className="text-xs text-gray-500">{description}</span>

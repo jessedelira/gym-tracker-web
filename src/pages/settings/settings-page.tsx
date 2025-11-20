@@ -51,7 +51,7 @@ export default function Settings() {
         {/* Account */}
         <Link
           to="/settings/account"
-          className="flex items-center justify-between p-4 "
+          className="flex items-center justify-between p-4"
         >
           <div className="flex items-center space-x-3">
             <UserIcon className="size-5 stroke-gray-500" />
@@ -105,7 +105,7 @@ export default function Settings() {
       <div className="mx-4 mt-6">
         <button
           onClick={() => logout()}
-          className="flex w-full items-center justify-center rounded-lg border border-red-200 bg-white p-4 text-red-600 "
+          className="flex w-full items-center justify-center rounded-lg border border-red-200 bg-white p-4 text-red-600"
         >
           <div className="flex items-center space-x-3">
             <ArrowLeftStartOnRectangleIcon className="size-5" />

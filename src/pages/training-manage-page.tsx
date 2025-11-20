@@ -18,7 +18,7 @@ export default function TrainingManagePage() {
 
   if (isUserLoading || !user) {
     return <LoadingSpinner />;
-  } 
+  }
 
   return (
     <div className="flex h-full flex-col space-y-4 bg-gray-50 p-4">

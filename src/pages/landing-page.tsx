@@ -97,7 +97,7 @@ export default function Landing() {
               href="https://github.com/jessedelira/gym-tracker-web"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 text-gray-500 transition-colors "
+              className="inline-flex items-center gap-2 text-gray-500 transition-colors"
             >
               <InformationCircleIcon className="size-6" />
               <span className="text-sm font-medium">What is this?</span>

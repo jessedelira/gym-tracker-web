@@ -13,8 +13,7 @@ import { StarIcon } from '@heroicons/react/24/outline';
 import { PlusIcon } from '@heroicons/react/24/outline';
 
 const ACTIVE_STAR_CLASSES = 'h-6 w-6 text-yellow-400 fill-current';
-const INACTIVE_STAR_CLASSES =
-  'h-6 w-6 text-gray-400 transition-colors';
+const INACTIVE_STAR_CLASSES = 'h-6 w-6 text-gray-400 transition-colors';
 
 export default function ManageRoutines() {
   const { user, isUserLoading } = useAuth();
@@ -69,7 +68,7 @@ export default function ManageRoutines() {
           </h1>
           <Link
             to="/training/routines/create"
-            className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-blue-600 text-white shadow-sm transition-all "
+            className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-blue-600 text-white shadow-sm transition-all"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
