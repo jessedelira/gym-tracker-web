@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import type { Routine } from '../../types/routine';
 
-async function fetchRoutines(userId: string): Promise<Routine[]> {
+async function fetchAllRoutines(userId: string): Promise<Routine[]> {
   try {
     const { data } = await axios.get<Routine[]>(
       `${import.meta.env.VITE_API_URL}/api/routine/list/${userId}`,
@@ -14,14 +14,14 @@ async function fetchRoutines(userId: string): Promise<Routine[]> {
   }
 }
 
-export function useFetchRoutines(userId?: string) {
+export function useFetchAllRoutines(userId?: string) {
   return useQuery({
     queryKey: ['routines', userId],
     queryFn: () => {
       if (!userId) {
         throw new Error('User ID is required to fetch routines');
       }
-      return fetchRoutines(userId);
+      return fetchAllRoutines(userId);
     },
     enabled: !!userId, // Only run the query if userId exists
   });

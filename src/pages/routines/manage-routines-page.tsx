@@ -7,7 +7,7 @@ import { useFetchActiveRoutine } from '../../hooks/active-routine/use-fetch-acti
 import type { Routine } from '../../types/routine';
 import { useRemoveActiveRoutine } from '../../hooks/active-routine/use-remove-active-routine';
 import { useSetActiveRoutine } from '../../hooks/active-routine/use-set-active-routine';
-import { useFetchRoutines } from '../../hooks/routine/use-fetch-routines';
+import { useFetchAllRoutines } from '../../hooks/routine/use-fetch-all-routines';
 import { PencilIcon } from '@heroicons/react/24/outline';
 import { StarIcon } from '@heroicons/react/24/outline';
 import { PlusIcon } from '@heroicons/react/24/outline';
@@ -20,9 +20,8 @@ export default function ManageRoutines() {
   const [activeRoutine, setActiveRoutine] = useState<Routine | null>(null);
   const navigate = useNavigate();
 
-  const { data: routineData, isLoading: isRoutinesLoading } = useFetchRoutines(
-    user?.id,
-  );
+  const { data: routineData, isLoading: isRoutinesLoading } =
+    useFetchAllRoutines(user?.id);
   const { data: activeRoutineData, isLoading: isActiveRoutineLoading } =
     useFetchActiveRoutine(!!user);
   const { mutate: setActiveRoutineMutation } = useSetActiveRoutine();

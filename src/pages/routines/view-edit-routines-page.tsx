@@ -5,6 +5,7 @@ import { useFetchEnrichedRoutineById } from '../../hooks/routine/use-fetch-enric
 import LoadingSpinner from '../../components/loading/loading-spinner';
 import { TrashIcon } from '@heroicons/react/24/outline';
 import type { Session } from '../../types/session';
+import { useFetchSessionsWithNoRoutine } from '../../hooks/session/use-fetch-sessions-with-no-routine';
 
 export default function ViewEditRoutines() {
   const { user, isUserLoading } = useAuth();
@@ -23,23 +24,39 @@ export default function ViewEditRoutines() {
   const [thursdayTaken, setThursdayTaken] = useState<boolean>(false);
   const [fridayTaken, setFridayTaken] = useState<boolean>(false);
   const [saturdayTaken, setSaturdayTaken] = useState<boolean>(false);
-  const [sessionsNotOnExistingRoutine, setSessionsNotOnExistingRoutine] =
-    useState<Session[]>([]);
-  const [sessionsOnExistingRoutine, setSessionsOnExistingRoutine] = useState<
-    Session[]
-  >([]);
+  const [availableSessions, setAvailableSessions] = useState<Session[]>();
+  const [sessionsOnExistingRoutine, setSessionsOnExistingRoutine] =
+    useState<Session[]>();
 
+  // Queries & Mutations
   const {
     data: existingRoutineDetails,
     isLoading: isRoutineLoading,
     error: routineErrorMessage,
   } = useFetchEnrichedRoutineById(routineId ?? '');
 
+  const { data: sessionsNotOnExistingRoutine } =
+    useFetchSessionsWithNoRoutine();
+
   useEffect(() => {
     if (!user && !isUserLoading) navigate('/');
-  }, [user, isUserLoading, navigate]);
 
-  if (isRoutineLoading) return <LoadingSpinner />;
+    if (existingRoutineDetails) {
+      setDescription(existingRoutineDetails.description);
+      setName(existingRoutineDetails.name);
+      setSessionsOnExistingRoutine(existingRoutineDetails.sessions);
+    }
+
+    if (sessionsNotOnExistingRoutine) {
+      setAvailableSessions(sessionsNotOnExistingRoutine);
+    }
+  }, [
+    user,
+    isUserLoading,
+    navigate,
+    existingRoutineDetails,
+    sessionsNotOnExistingRoutine,
+  ]);
 
   function handleSave(e: React.FormEvent<HTMLFormElement>): void {
     console.log('save!');
@@ -51,8 +68,14 @@ export default function ViewEditRoutines() {
     console.log(sessionId);
   }
 
+  function handleAddSession(sessionId: string) {
+    console.log('given id is ', sessionId);
+  }
+
+  if (isRoutineLoading) return <LoadingSpinner />;
+
   return (
-    <div className="flex h-full flex-col bg-gray-50 px-4 py-6">
+    <div className="flex flex-col bg-gray-50 px-4 py-6">
       <div className="mb-6">
         <h1 className="text-2xl font-semibold tracking-tight text-gray-900">
           Edit Routine
@@ -147,7 +170,7 @@ export default function ViewEditRoutines() {
               className="flex-1 rounded-xl border-2 border-gray-200 px-4 py-3 text-gray-900"
             >
               <option value="">Select a session</option>
-              {sessionsNotOnExistingRoutine.map((session) => (
+              {availableSessions?.map((session) => (
                 <option key={session.id} value={session.id}>
                   {session.name}
                 </option>
@@ -161,9 +184,9 @@ export default function ViewEditRoutines() {
                 ) as HTMLSelectElement;
                 const sessionId = select.value;
                 console.log(sessionId);
-                // if (sessionId) {
-                //   void handleAddSession(sessionId);
-                // }
+                if (sessionId) {
+                  void handleAddSession(sessionId);
+                }
               }}
               className="rounded-xl bg-blue-600 px-6 py-3 font-medium text-white transition-all hover:bg-blue-700"
             >
@@ -172,7 +195,7 @@ export default function ViewEditRoutines() {
           </div>
 
           <div className="space-y-3">
-            {sessionsOnExistingRoutine.map((session) => (
+            {sessionsOnExistingRoutine?.map((session) => (
               <div
                 key={session.id}
                 className="rounded-xl border border-gray-200 bg-gray-50 p-4"
@@ -197,7 +220,7 @@ export default function ViewEditRoutines() {
                       key={index}
                       className="rounded-md bg-blue-50 px-2 py-1 text-sm font-medium text-blue-700"
                     >
-                      {dayActive.day}
+                      {dayActive.day.toString().slice(0, 3).toLowerCase()}
                     </div>
                   ))}
                 </div>
@@ -207,7 +230,7 @@ export default function ViewEditRoutines() {
         </div>
 
         {dataHasChangedInForm && (
-          <div className="flex space-x-4 mt-2">
+          <div className="mt-2 flex space-x-4">
             <button
               type="submit"
               className="flex-1 rounded-xl bg-blue-600 px-4 py-4 text-base font-medium text-white shadow-md"
