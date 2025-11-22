@@ -25,7 +25,7 @@ export default function Settings() {
   }
 
   return (
-    <div className="flex h-full flex-col pb-4">
+    <div className="flex h-full flex-col bg-gray-50 pb-4">
       {/* Profile card */}
       <div className="mx-4 mt-6 rounded-lg border border-gray-200 bg-white p-4">
         <div className="flex items-center space-x-4">
