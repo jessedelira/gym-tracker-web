@@ -13,6 +13,7 @@ import ManageAccount from './pages/settings/manage-account-page';
 import Settings from './pages/settings/settings-page';
 import TrainingManagePage from './pages/training-manage-page';
 import ViewEditRoutines from './pages/routines/view-edit-routines-page';
+import CreateRoutine from './pages/routines/create-routine-page';
 
 const queryClient = new QueryClient();
 
@@ -38,6 +39,10 @@ export default function App() {
               <Route
                 path="/training/routines/:routineId"
                 element={<ViewEditRoutines />}
+              />
+              <Route
+                path="/training/routines/create"
+                element={<CreateRoutine />}
               />
               <Route
                 path="/training/sessions"

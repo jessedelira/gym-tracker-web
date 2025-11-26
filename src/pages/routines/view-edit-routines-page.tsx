@@ -6,6 +6,10 @@ import LoadingSpinner from '../../components/loading/loading-spinner';
 import { TrashIcon } from '@heroicons/react/24/outline';
 import type { Session } from '../../types/session';
 import { useFetchSessionsWithNoRoutine } from '../../hooks/session/use-fetch-sessions-with-no-routine';
+import {
+  useUpdateRoutine,
+  type UpdateRoutineDto,
+} from '../../hooks/routine/use-update-routine';
 
 export default function ViewEditRoutines() {
   const { user, isUserLoading } = useAuth();
@@ -33,6 +37,7 @@ export default function ViewEditRoutines() {
     useFetchSessionsWithNoRoutine();
 
   // Mutations
+  const { mutateAsync: updateRoutine } = useUpdateRoutine();
 
   useEffect(() => {
     if (!user && !isUserLoading) navigate('/');
@@ -54,12 +59,26 @@ export default function ViewEditRoutines() {
     sessionsNotOnExistingRoutine,
   ]);
 
-  function handleSave(e: React.FormEvent<HTMLFormElement>): void {
-    console.log('save!');
-    console.log(e);
+  async function handleFormSubmit(
+    e: React.FormEvent<HTMLFormElement>,
+  ): Promise<void> {
+    e.preventDefault();
+
+    const dto: UpdateRoutineDto = {
+      routineId: existingRoutineDetails?.id ?? '',
+      name: routineName,
+      description: routineDescription,
+      sessionIds: sessionsOnRoutine?.map((session) => session.id) ?? [],
+    };
+
+    await updateRoutine(dto);
+    navigate('/training/routines');
   }
 
   function canSubmit(): boolean {
+    console.log(
+      !!routineName && !!sessionsOnRoutine && sessionsOnRoutine.length > 0,
+    );
     return !!routineName && !!sessionsOnRoutine && sessionsOnRoutine.length > 0;
   }
 
@@ -89,6 +108,8 @@ export default function ViewEditRoutines() {
     if (sessionsOnRoutine && sessionToBeAdded) {
       setSessionsOnRoutine([...sessionsOnRoutine, sessionToBeAdded]);
     }
+
+    console.log(sessionsOnRoutine);
   }
 
   if (isRoutineLoading) return <LoadingSpinner />;
@@ -105,7 +126,7 @@ export default function ViewEditRoutines() {
           </p>
         </div>
 
-        <form onSubmit={(e) => void handleSave(e)} className="space-y-6">
+        <form onSubmit={(e) => void handleFormSubmit(e)} className="space-y-6">
           {routineErrorMessage && (
             <div className="rounded-xl border border-red-200 bg-red-50 p-4">
               <p className="text-sm font-medium text-red-800">
@@ -230,14 +251,14 @@ export default function ViewEditRoutines() {
             <div className="mt-2 flex space-x-4">
               <button
                 type="submit"
-                className="flex-1 rounded-xl bg-blue-600 px-4 py-4 text-base font-medium text-white shadow-md"
+                disabled={!canSubmit()}
+                className="flex-1 rounded-xl bg-blue-600 px-4 py-4 text-base font-medium text-white shadow-md disabled:cursor-not-allowed disabled:opacity-50"
               >
                 Save Changes
               </button>
               <button
                 type="button"
                 onClick={() => navigate('/training/routines')}
-                disabled={canSubmit()}
                 className="flex-1 rounded-xl border-2 border-gray-200 bg-white px-4 py-4 text-base font-medium text-gray-700 shadow-sm"
               >
                 Cancel

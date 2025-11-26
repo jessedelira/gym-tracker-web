@@ -9,14 +9,12 @@ export type UpdateRoutineDto = {
   sessionIds: string[];
 };
 
-async function updateRoutine(dto: UpdateRoutineDto): Promise<Routine> {
-  const { data } = await axios.patch<Routine>(
+async function updateRoutine(dto: UpdateRoutineDto): Promise<void> {
+  await axios.patch<Routine>(
     `${import.meta.env.VITE_API_URL}/api/routine/update`,
     dto,
     { withCredentials: true },
   );
-
-  return data;
 }
 
 export function useUpdateRoutine() {
