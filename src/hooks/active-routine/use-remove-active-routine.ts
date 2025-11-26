@@ -1,18 +1,8 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import axios from 'axios';
+import api from '../../utils/axios';
 
-async function removeActiveRoutine(userId?: string): Promise<void> {
-  try {
-    await axios.post(
-      `${import.meta.env.VITE_API_URL}/api/routine/remove-active`,
-      {
-        userId: userId,
-      },
-      { withCredentials: true },
-    );
-  } catch {
-    throw new Error('Unexpected error occurred');
-  }
+async function removeActiveRoutine(userId: string): Promise<void> {
+  await api.post('/api/routine/remove-active', { userId });
 }
 
 export function useRemoveActiveRoutine(userId?: string) {
@@ -26,7 +16,6 @@ export function useRemoveActiveRoutine(userId?: string) {
       return removeActiveRoutine(userId);
     },
     onSuccess: () => {
-      // Invalidate and refetch active routine and routines queries
       queryClient.invalidateQueries({ queryKey: ['activeRoutine'] });
       queryClient.invalidateQueries({ queryKey: ['routines'] });
     },

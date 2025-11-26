@@ -1,6 +1,5 @@
-import axios from 'axios';
-import type { Routine } from '../../types/routine';
 import { useMutation } from '@tanstack/react-query';
+import api from '../../utils/axios';
 
 export type UpdateRoutineDto = {
   routineId: string;
@@ -10,11 +9,7 @@ export type UpdateRoutineDto = {
 };
 
 async function updateRoutine(dto: UpdateRoutineDto): Promise<void> {
-  await axios.patch<Routine>(
-    `${import.meta.env.VITE_API_URL}/api/routine/update`,
-    dto,
-    { withCredentials: true },
-  );
+  await api.patch('/api/routine/update', dto);
 }
 
 export function useUpdateRoutine() {

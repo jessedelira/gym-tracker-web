@@ -1,17 +1,10 @@
 import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
+import api from '../../utils/axios';
 import type { Routine } from '../../types/routine';
 
 async function fetchAllRoutines(userId: string): Promise<Routine[]> {
-  try {
-    const { data } = await axios.get<Routine[]>(
-      `${import.meta.env.VITE_API_URL}/api/routine/list/${userId}`,
-      { withCredentials: true },
-    );
-    return data;
-  } catch {
-    throw new Error('Unexpected error occurred');
-  }
+  const { data } = await api.get<Routine[]>(`/api/routine/list/${userId}`);
+  return data;
 }
 
 export function useFetchAllRoutines(userId?: string) {
@@ -23,6 +16,6 @@ export function useFetchAllRoutines(userId?: string) {
       }
       return fetchAllRoutines(userId);
     },
-    enabled: !!userId, // Only run the query if userId exists
+    enabled: !!userId,
   });
 }

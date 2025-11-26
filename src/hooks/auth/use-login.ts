@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
 import { useAuth } from './use-auth';
-import axios from 'axios';
+import api from '../../utils/axios';
 import type { User } from '../../types/user';
 
 type LoginProps = {
@@ -14,16 +14,8 @@ export type LoginResponseDto = {
 };
 
 async function loginUser(input: LoginProps): Promise<LoginResponseDto> {
-  try {
-    const { data } = await axios.post<LoginResponseDto>(
-      `${import.meta.env.VITE_API_URL}/api/auth/login`,
-      input,
-      { withCredentials: true },
-    );
-    return data;
-  } catch {
-    throw new Error('Unexpected error occurred');
-  }
+  const { data } = await api.post<LoginResponseDto>('/api/auth/login', input);
+  return data;
 }
 
 export function useLogin() {

@@ -1,18 +1,10 @@
 import { useMutation } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from './use-auth';
-import axios from 'axios';
+import api from '../../utils/axios';
 
 async function logoutUser(): Promise<void> {
-  try {
-    await axios.post(
-      `${import.meta.env.VITE_API_URL}/api/auth/logout`,
-      {},
-      { withCredentials: true },
-    );
-  } catch {
-    throw new Error('Unexpected error occurred');
-  }
+  await api.post('/api/auth/logout');
 }
 
 export function useLogout() {

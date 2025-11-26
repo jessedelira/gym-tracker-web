@@ -1,16 +1,10 @@
-import axios from 'axios';
 import { useQuery } from '@tanstack/react-query';
+import api from '../../utils/axios';
 import type { TimezoneMap } from '../../types/timezone-map';
 
 async function fetchTimezones(): Promise<TimezoneMap[]> {
-  try {
-    const { data } = await axios.get<TimezoneMap[]>(
-      `${import.meta.env.VITE_API_URL}/api/timezone`,
-    );
-    return data;
-  } catch {
-    throw new Error('Unexpected error occurred');
-  }
+  const { data } = await api.get<TimezoneMap[]>('/api/timezone');
+  return data;
 }
 
 export function useFetchTimezones() {

@@ -1,29 +1,14 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
-import axios from 'axios';
+import api from '../../utils/axios';
 import type { ActiveSession } from '../../types/active-session';
 
 async function fetchActiveSession(): Promise<ActiveSession> {
-  try {
-    const { data } = await axios.get<ActiveSession>(
-      `${import.meta.env.VITE_API_URL}/api/active-session`,
-      { withCredentials: true },
-    );
-    return data;
-  } catch {
-    throw new Error('Unexpected error occurred');
-  }
+  const { data } = await api.get<ActiveSession>('/api/active-session');
+  return data;
 }
 
 async function startActiveSession(sessionId: string): Promise<void> {
-  try {
-    await axios.post(
-      `${import.meta.env.VITE_API_URL}/api/active-session`,
-      { sessionId },
-      { withCredentials: true },
-    );
-  } catch {
-    throw new Error('Unexpected error occurred');
-  }
+  await api.post('/api/active-session', { sessionId });
 }
 
 export function useFetchActiveSession(enabled: boolean) {

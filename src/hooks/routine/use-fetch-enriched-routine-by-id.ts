@@ -1,13 +1,9 @@
 import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
+import api from '../../utils/axios';
 import type { Routine } from '../../types/routine';
 
 async function fetchEnrichedRoutineById(routineId: string): Promise<Routine> {
-  const { data } = await axios.get<Routine>(
-    `${import.meta.env.VITE_API_URL}/api/routine/${routineId}`,
-    { withCredentials: true },
-  );
-
+  const { data } = await api.get<Routine>(`/api/routine/${routineId}`);
   return data;
 }
 

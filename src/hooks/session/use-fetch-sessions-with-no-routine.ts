@@ -1,13 +1,9 @@
 import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
+import api from '../../utils/axios';
 import type { Session } from '../../types/session';
 
-async function fetchSessionsWithNoRoutine() {
-  const { data } = await axios.get<Session[]>(
-    `${import.meta.env.VITE_API_URL}/api/session/not-in-routine`,
-    { withCredentials: true },
-  );
-
+async function fetchSessionsWithNoRoutine(): Promise<Session[]> {
+  const { data } = await api.get<Session[]>('/api/session/not-in-routine');
   return data;
 }
 

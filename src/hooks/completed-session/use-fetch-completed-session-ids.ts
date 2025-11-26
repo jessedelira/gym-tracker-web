@@ -1,29 +1,18 @@
 import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
+import api from '../../utils/axios';
 
-export async function fetchCompletedSessionIds(
+async function fetchCompletedSessionIds(
   userUTCDateTime: Date,
 ): Promise<string[]> {
-  try {
-    const { data } = await axios.get<string[]>(
-      `${import.meta.env.VITE_API_URL}/api/completed-session/list?userUtcDateTime=${userUTCDateTime.toISOString()}`,
-      {
-        withCredentials: true,
-      },
-    );
-
-    return data;
-  } catch (err) {
-    console.error('[fetchCompletedSessionIds] Error', err);
-    throw new Error(
-      'Unexpected error occurred while fetching completed sessions',
-    );
-  }
+  const { data } = await api.get<string[]>('/api/completed-session/list', {
+    params: { userUtcDateTime: userUTCDateTime.toISOString() },
+  });
+  return data;
 }
 
 export function useFetchCompletedSessionIds(enabled: boolean) {
   return useQuery({
-    queryKey: ['completedSessions', 'today'], // TODO: please explain the keys
+    queryKey: ['completedSessions', 'today'],
     queryFn: () => fetchCompletedSessionIds(new Date()),
     enabled,
   });

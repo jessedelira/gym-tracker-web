@@ -1,18 +1,12 @@
 import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
+import api from '../../utils/axios';
 import type { Workout } from '../../types/workout';
 
 async function fetchWorkoutsForSession(sessionId: string): Promise<Workout[]> {
-  try {
-    const { data } = await axios.get<Workout[]>(
-      `${import.meta.env.VITE_API_URL}/api/workout/session/${sessionId}`,
-      { withCredentials: true },
-    );
-
-    return data;
-  } catch {
-    throw new Error('Unexpected error occurred');
-  }
+  const { data } = await api.get<Workout[]>(
+    `/api/workout/session/${sessionId}`,
+  );
+  return data;
 }
 
 export function useFetchWorkoutsForSession(sessionId?: string) {

@@ -1,5 +1,5 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import axios from 'axios';
+import { useMutation } from '@tanstack/react-query';
+import api from '../../utils/axios';
 
 interface SetActiveRoutineParams {
   routineId: string;
@@ -8,15 +8,7 @@ interface SetActiveRoutineParams {
 async function setActiveRoutine({
   routineId,
 }: SetActiveRoutineParams): Promise<void> {
-  try {
-    await axios.post(
-      `${import.meta.env.VITE_API_URL}/api/routine/set-active`,
-      { routineId },
-      { withCredentials: true },
-    );
-  } catch {
-    throw new Error('Unexpected error occurred');
-  }
+  await api.post('/api/routine/set-active', { routineId });
 }
 
 export function useSetActiveRoutine() {

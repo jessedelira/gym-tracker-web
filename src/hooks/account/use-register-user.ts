@@ -1,5 +1,5 @@
 import { useMutation } from '@tanstack/react-query';
-import axios from 'axios';
+import api from '../../utils/axios';
 import { useAuth } from '../auth/use-auth';
 import type { User } from '../../types/user';
 
@@ -19,17 +19,11 @@ export type RegisterUserResponse = {
 async function registerUser(
   input: RegisterUserRequest,
 ): Promise<RegisterUserResponse> {
-  try {
-    const { data } = await axios.post<RegisterUserResponse>(
-      `${import.meta.env.VITE_API_URL}/api/auth/register`,
-      input,
-      { withCredentials: true },
-    );
-
-    return data;
-  } catch {
-    throw new Error('Unexpected error occurred');
-  }
+  const { data } = await api.post<RegisterUserResponse>(
+    '/api/auth/register',
+    input,
+  );
+  return data;
 }
 
 export function useRegisterUser() {

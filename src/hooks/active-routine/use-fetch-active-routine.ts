@@ -1,17 +1,10 @@
 import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
+import api from '../../utils/axios';
 import type { Routine } from '../../types/routine';
 
 async function fetchActiveRoutine(): Promise<Routine> {
-  try {
-    const { data } = await axios.get<Routine>(
-      `${import.meta.env.VITE_API_URL}/api/routine/active`,
-      { withCredentials: true },
-    );
-    return data;
-  } catch {
-    throw new Error('Unexpected error occurred');
-  }
+  const { data } = await api.get<Routine>('/api/routine/active');
+  return data;
 }
 
 export function useFetchActiveRoutine(enabled: boolean) {
