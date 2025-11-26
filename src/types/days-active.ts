@@ -1,7 +1,7 @@
-import type { DAYS } from './days';
+import type { DayOfWeek } from './days';
 
 export type DaysActive = {
   id: string;
-  day: DAYS;
+  day: DayOfWeek;
   sessionId: string;
 };
