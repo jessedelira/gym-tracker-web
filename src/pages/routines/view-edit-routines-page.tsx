@@ -28,7 +28,7 @@ export default function ViewEditRoutines() {
   const [sessionsOnExistingRoutine, setSessionsOnExistingRoutine] =
     useState<Session[]>();
 
-  // Queries & Mutations
+  // Queries
   const {
     data: existingRoutineDetails,
     isLoading: isRoutineLoading,
@@ -37,6 +37,9 @@ export default function ViewEditRoutines() {
 
   const { data: sessionsNotOnExistingRoutine } =
     useFetchSessionsWithNoRoutine();
+
+  // Mutations
+  
 
   useEffect(() => {
     if (!user && !isUserLoading) navigate('/');
