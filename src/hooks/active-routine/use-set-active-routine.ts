@@ -20,14 +20,7 @@ async function setActiveRoutine({
 }
 
 export function useSetActiveRoutine() {
-  const queryClient = useQueryClient();
-
   return useMutation({
     mutationFn: setActiveRoutine,
-    onSuccess: () => {
-      // Invalidate and refetch active routine and routines queries
-      queryClient.invalidateQueries({ queryKey: ['activeRoutine'] });
-      queryClient.invalidateQueries({ queryKey: ['routines'] });
-    },
   });
 }

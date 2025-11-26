@@ -13,20 +13,14 @@ export default function ViewEditRoutines() {
   const { routineId } = useParams<{ routineId: string }>();
 
   // Form State
-  const [name, setName] = useState<string>('');
+  const [routineName, setRoutineName] = useState<string>('');
   const [dataHasChangedInForm, setDataHasChangedInForm] =
     useState<boolean>(false);
-  const [description, setDescription] = useState<string>('');
-  const [sundayTaken, setSundayTaken] = useState<boolean>(false);
-  const [mondayTaken, setMondayTaken] = useState<boolean>(false);
-  const [tuesdayTaken, setTuesdayTaken] = useState<boolean>(false);
-  const [wednesdayTaken, setWednesdayTaken] = useState<boolean>(false);
-  const [thursdayTaken, setThursdayTaken] = useState<boolean>(false);
-  const [fridayTaken, setFridayTaken] = useState<boolean>(false);
-  const [saturdayTaken, setSaturdayTaken] = useState<boolean>(false);
+  const [routineDescription, setRoutineDescription] = useState<string | null>(
+    '',
+  );
   const [availableSessions, setAvailableSessions] = useState<Session[]>();
-  const [sessionsOnExistingRoutine, setSessionsOnExistingRoutine] =
-    useState<Session[]>();
+  const [sessionsOnRoutine, setSessionsOnRoutine] = useState<Session[]>();
 
   // Queries
   const {
@@ -39,15 +33,14 @@ export default function ViewEditRoutines() {
     useFetchSessionsWithNoRoutine();
 
   // Mutations
-  
 
   useEffect(() => {
     if (!user && !isUserLoading) navigate('/');
 
     if (existingRoutineDetails) {
-      setDescription(existingRoutineDetails.description);
-      setName(existingRoutineDetails.name);
-      setSessionsOnExistingRoutine(existingRoutineDetails.sessions);
+      setRoutineDescription(existingRoutineDetails.description);
+      setRoutineName(existingRoutineDetails.name);
+      setSessionsOnRoutine(existingRoutineDetails.sessions);
     }
 
     if (sessionsNotOnExistingRoutine) {
@@ -66,12 +59,17 @@ export default function ViewEditRoutines() {
     console.log(e);
   }
 
+  function canSubmit(): boolean {
+    return !!routineName && !!sessionsOnRoutine && sessionsOnRoutine.length > 0;
+  }
+
   function handleRemoveSession(sessionId: string): void {
-    const sessionToBeRemoved = sessionsOnExistingRoutine?.find(
+    setDataHasChangedInForm(true);
+    const sessionToBeRemoved = sessionsOnRoutine?.find(
       (session) => session.id === sessionId,
     );
-    setSessionsOnExistingRoutine(
-      sessionsOnExistingRoutine?.filter((session) => session.id !== sessionId),
+    setSessionsOnRoutine(
+      sessionsOnRoutine?.filter((session) => session.id !== sessionId),
     );
 
     if (availableSessions && sessionToBeRemoved) {
@@ -80,6 +78,7 @@ export default function ViewEditRoutines() {
   }
 
   function handleAddSession(sessionId: string) {
+    setDataHasChangedInForm(true);
     const sessionToBeAdded = availableSessions?.find(
       (session) => session.id === sessionId,
     );
@@ -87,14 +86,8 @@ export default function ViewEditRoutines() {
       availableSessions?.filter((session) => session.id !== sessionId),
     );
 
-    console.log('sessionsOnExistingRoutine', sessionsOnExistingRoutine);
-    console.log('sessionToBeAdded', sessionToBeAdded);
-
-    if (sessionsOnExistingRoutine && sessionToBeAdded) {
-      setSessionsOnExistingRoutine([
-        ...sessionsOnExistingRoutine,
-        sessionToBeAdded,
-      ]);
+    if (sessionsOnRoutine && sessionToBeAdded) {
+      setSessionsOnRoutine([...sessionsOnRoutine, sessionToBeAdded]);
     }
   }
 
@@ -133,9 +126,9 @@ export default function ViewEditRoutines() {
                 <input
                   type="text"
                   id="name"
-                  value={name}
+                  value={routineName}
                   onChange={(e) => {
-                    setName(e.target.value);
+                    setRoutineName(e.target.value);
                     setDataHasChangedInForm(true);
                   }}
                   className="mt-1 w-full rounded-xl border-2 border-gray-200 px-4 py-3 text-gray-900 transition-all hover:border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 focus:outline-none"
@@ -151,9 +144,9 @@ export default function ViewEditRoutines() {
                 </label>
                 <textarea
                   id="description"
-                  value={description}
+                  value={routineDescription ?? ''}
                   onChange={(e) => {
-                    setDescription(e.target.value);
+                    setRoutineDescription(e.target.value);
                     setDataHasChangedInForm(true);
                   }}
                   className="mt-1 w-full rounded-xl border-2 border-gray-200 px-4 py-3 text-gray-900 transition-all hover:border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 focus:outline-none"
@@ -167,29 +160,6 @@ export default function ViewEditRoutines() {
             <h2 className="mb-4 text-lg font-medium text-gray-900">
               Manage Sessions
             </h2>
-
-            <div className="mb-6 flex justify-center gap-2">
-              {[
-                { label: 'S', taken: sundayTaken },
-                { label: 'M', taken: mondayTaken },
-                { label: 'T', taken: tuesdayTaken },
-                { label: 'W', taken: wednesdayTaken },
-                { label: 'T', taken: thursdayTaken },
-                { label: 'F', taken: fridayTaken },
-                { label: 'S', taken: saturdayTaken },
-              ].map((day, index) => (
-                <div
-                  key={index}
-                  className={`flex h-10 w-10 items-center justify-center rounded-lg border-2 border-gray-200 text-lg font-medium ${
-                    day.taken
-                      ? 'bg-green-100 text-green-800'
-                      : 'bg-white text-gray-600'
-                  }`}
-                >
-                  {day.label}
-                </div>
-              ))}
-            </div>
 
             <div className="mb-6 flex gap-2">
               <select
@@ -222,7 +192,7 @@ export default function ViewEditRoutines() {
             </div>
 
             <div className="space-y-3">
-              {sessionsOnExistingRoutine?.map((session) => (
+              {sessionsOnRoutine?.map((session) => (
                 <div
                   key={session.id}
                   className="rounded-xl border border-gray-200 bg-gray-50 p-4"
@@ -266,7 +236,8 @@ export default function ViewEditRoutines() {
               </button>
               <button
                 type="button"
-                onClick={() => void navigate('/training/routines')}
+                onClick={() => navigate('/training/routines')}
+                disabled={canSubmit()}
                 className="flex-1 rounded-xl border-2 border-gray-200 bg-white px-4 py-4 text-base font-medium text-gray-700 shadow-sm"
               >
                 Cancel
