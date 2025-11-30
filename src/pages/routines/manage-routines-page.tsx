@@ -58,7 +58,7 @@ export default function ManageRoutines() {
   }
 
   return (
-    <div className="flex h-fit flex-col bg-gray-50 px-4 py-6">
+    <div className="flex min-h-full flex-col bg-gray-50 px-4 py-6">
       {/* Header Section */}
       <div className="mb-6">
         <div className="flex items-center justify-between">
