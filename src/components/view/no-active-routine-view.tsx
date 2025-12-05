@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 
 export function NoActiveRoutineView() {
   return (
-    <div className="flex h-full flex-col items-center justify-center px-6 text-center">
+    <div className="mt-12 flex h-full flex-col items-center justify-center px-6 text-center">
       <h1 className="mb-4 text-xl font-medium text-gray-900">
         No Active Routine Selected
       </h1>

@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 
 export function WelcomeNewUserView() {
   return (
-    <div className="flex h-full w-full flex-col items-center justify-center px-6 text-center">
+    <div className="mt-15 flex h-full w-full flex-col items-center justify-center px-6 text-center">
       <div className="mb-6 inline-flex rounded-full bg-blue-100 p-4">
         <svg
           className="h-8 w-8 text-blue-600"
@@ -28,7 +28,7 @@ export function WelcomeNewUserView() {
       </p>
 
       <Link
-        to="/manage/routines"
+        to="/training/routines"
         className="w-full rounded-xl bg-blue-600 px-8 py-4 text-center text-base font-medium text-white shadow-md transition-all"
       >
         Create Routine

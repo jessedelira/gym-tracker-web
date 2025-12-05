@@ -6,7 +6,7 @@ export function NoSessionsOnCurrentDateView({
   routineName,
 }: NoSessionsOnCurrentDateViewProps) {
   return (
-    <div className="flex flex-col items-center justify-center p-4 text-center mt-60">
+    <div className="mt-60 flex flex-col items-center justify-center p-4 text-center">
       <img
         src="/gifs/bunnyRunner.gif"
         alt="Animated running rabbit"
