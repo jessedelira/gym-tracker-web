@@ -1,20 +1,19 @@
-import { isConfettiEnabled, showConfetti } from '../utils/confetti';
-import { useFetchActiveRoutine } from './active-routine/use-fetch-active-routine';
+import type { Session } from '../../types/session';
+import type { ActiveSession } from '../../types/active-session';
+import type { Routine } from '../../types/routine';
+import type { User } from '../../types/user';
+import type { Workout } from '../../types/workout';
+import { isConfettiEnabled, showConfetti } from '../../utils/confetti';
+import { useFetchActiveRoutine } from '../active-routine/use-fetch-active-routine';
 import {
   useFetchActiveSession,
   useStartActiveSession,
-} from './active-session/use-active-session';
-import { useCompleteSession } from './completed-session/use-complete-session';
-import { useFetchRoutineCount } from './routine/use-fetch-routine-count';
-import { useFetchWorkoutsForSession } from './workout/use-fetch-workouts-for-session';
-import { useFetchSessionsForToday } from './session/use-fetch-sessions-for-today';
-import { useFetchCompletedSessionIds } from './completed-session/use-fetch-completed-session-ids';
-
-import type { ActiveSession } from '../types/active-session';
-import type { User } from '../types/user';
-import type { Routine } from '../types/routine';
-import type { Workout } from '../types/workout';
-import type { Session } from '../types/session';
+} from '../active-session/use-active-session';
+import { useCompleteSession } from '../completed-session/use-complete-session';
+import { useFetchCompletedSessionIds } from '../completed-session/use-fetch-completed-session-ids';
+import { useFetchRoutineCount } from '../routine/use-fetch-routine-count';
+import { useFetchSessionsForToday } from '../session/use-fetch-sessions-for-today';
+import { useFetchWorkoutsForSession } from '../workout/use-fetch-workouts-for-session';
 
 export enum WorkoutDataStateType {
   LOADING = 'Loading',

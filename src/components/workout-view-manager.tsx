@@ -1,7 +1,3 @@
-import {
-  useWorkoutData,
-  WorkoutDataStateType,
-} from '../hooks/use-workout-data';
 import type { User } from '../types/user';
 import LoadingSpinner from './loading/loading-spinner';
 import { NoActiveRoutineView } from './view/no-active-routine-view';
@@ -10,6 +6,10 @@ import { NoSessionsOnCurrentDateView } from './workout/no-sessions-on-current-da
 import { WorkoutSessionCard } from './workout/workout-session-card';
 import { ActiveSessionWorkoutList } from './workout/active-session-workout-list';
 import { useLocalStorageWorkoutProgress } from '../hooks/local-storage-active-session-workout-progress/use-local-storage-workout-progress-map';
+import {
+  useWorkoutData,
+  WorkoutDataStateType,
+} from '../hooks/workout-data/use-workout-data';
 
 interface WorkoutViewManagerProps {
   user: User;
