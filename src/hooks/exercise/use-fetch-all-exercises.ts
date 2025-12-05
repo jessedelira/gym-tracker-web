@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from '@tanstack/react-query';
+import {   useQuery } from '@tanstack/react-query';
 import type { Exercise } from '../../types/exercise';
 import api from '../../utils/axios';
 
