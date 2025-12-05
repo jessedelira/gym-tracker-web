@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../hooks/auth/use-auth';
-import LoadingSpinner from '../components/loading/loading-spinner';
 import { WorkoutViewManager } from '../components/workout-view-manager';
+import LoadingSpinner from '../components/loading/loading-spinner';
 
 export default function Home() {
   const navigate = useNavigate();
@@ -17,7 +17,7 @@ export default function Home() {
   }
 
   return (
-    <div className="flex h-full flex-col items-center">
+    <div className="flex h-fit flex-col items-center">
       <WorkoutViewManager user={user} />
     </div>
   );
