@@ -15,7 +15,7 @@ import TrainingManagePage from './pages/training-manage-page';
 import ViewEditRoutines from './pages/routines/view-edit-routines-page';
 import CreateRoutine from './pages/routines/create-routine-page';
 import ManageSessions from './pages/sessions/manage-sessions-page';
-import CreateSession from './pages/sessions/create-sessions-page';
+import CreateSession from './pages/sessions/create-session-page';
 
 const queryClient = new QueryClient();
 
