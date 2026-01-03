@@ -11,8 +11,20 @@ export type LoginResponseDto = {
   user: User | null;
 };
 
+type RegisterUserDto = {
+  username: string;
+  password: string;
+  firstName: string;
+  lastName: string;
+  timezoneId: string;
+};
+
 export async function login(loginDto: LoginDto) {
   const { data } = await api.post<LoginResponseDto>('/auth/login', loginDto);
 
   return data;
+}
+
+export async function registerUser(registerUser: RegisterUserDto) {
+  await api.post('/auth/register', registerUser);
 }
