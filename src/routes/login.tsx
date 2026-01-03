@@ -17,6 +17,10 @@ export function LoginPage() {
 
   async function handleSignInSubmit(e: SubmitEvent) {
     e.preventDefault();
+    console.log({
+      username: username(),
+      password: password(),
+    });
     const data = await login({ username: username(), password: password() });
 
     if (data.success) {

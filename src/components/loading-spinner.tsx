@@ -2,6 +2,7 @@ export function LoadingSpinner() {
   return (
     <div
       class="flex w-full items-center justify-center"
+      // This is the math for 100% of the viewport minus the navbar height (19pb)
       style={{ height: 'calc(100vh - 76px)' }}
     >
       <div

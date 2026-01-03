@@ -1,4 +1,4 @@
-import { createMemo, createResource, For, Match, Show, Switch } from 'solid-js';
+import { createMemo, createResource, For, Match, Switch } from 'solid-js';
 import {
   fetchActiveRoutine,
   fetchRoutineCount,
@@ -62,24 +62,31 @@ export function Home() {
   );
 
   const isNewUser = createMemo(() => {
-    const count = routineCount();
-    return count && count.count === 0;
+    return routineCount() && routineCount()?.count === 0;
   });
 
   const hasNoActiveRoutine = createMemo(() => {
     return !activeRoutine() && !isNewUser();
   });
 
-  const availableSessionsData = createMemo(() => {
-    const routine = activeRoutine();
-    const sessions = sessionsForCurrentDay();
-    const completed = completedSessionIds();
+  const noSessionAvailableToday = createMemo(() => {
+    if (
+      activeRoutine() &&
+      !activeSession() &&
+      sessionsForCurrentDay()?.length === 0
+    ) {
+      return true;
+    } else {
+      return false;
+    }
+  });
 
-    if (routine && sessions && !activeSession()) {
+  const availableSessionsData = createMemo(() => {
+    if (activeRoutine() && sessionsForCurrentDay() && !activeSession()) {
       return {
-        routine,
-        sessions,
-        completedIds: completed?.map((s) => s.id) ?? [],
+        routin: activeRoutine(),
+        sessions: sessionsForCurrentDay(),
+        completedIds: completedSessionIds()?.map((s) => s.id) ?? [],
       };
     }
     return null;
@@ -108,7 +115,7 @@ export function Home() {
     <div class="flex h-fit flex-col items-center">
       <div class="flex h-fit flex-col items-center">
         <Switch>
-          <Match when={true}>
+          <Match when={isLoading()}>
             <LoadingSpinner />
           </Match>
           <Match when={isNewUser()}>
@@ -116,6 +123,13 @@ export function Home() {
           </Match>
           <Match when={hasNoActiveRoutine()}>
             <NoActiveRoutineView />
+          </Match>
+          {/* Create a Match for when you have no sessions on Day*/}
+          <Match when={noSessionAvailableToday()}>
+            <div>
+              You don't have any sessions today for Routine{' '}
+              {activeRoutine()?.name} :)
+            </div>
           </Match>
           <Match when={availableSessionsData()}>
             {(data) => (

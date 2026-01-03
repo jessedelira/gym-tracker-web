@@ -34,7 +34,7 @@ export function AccountCreatedModal() {
         </p>
 
         <A
-          href="/signin"
+          href="/home"
           class="block w-full rounded-xl bg-blue-600 px-8 py-4 text-center text-base font-medium text-white shadow-md transition-all"
         >
           Sign In

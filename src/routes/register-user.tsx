@@ -1,18 +1,13 @@
-import {
-  createEffect,
-  createResource,
-  createSignal,
-  For,
-  Show,
-} from 'solid-js';
+import { createResource, createSignal, For, Show } from 'solid-js';
 import { AccountCreatedModal } from '../components/modal/account-created-modal';
 import { A } from '@solidjs/router';
 import { fetchAllTimezones } from '../api/services/timezone.service';
 import { createStore } from 'solid-js/store';
+import { PeekPasswordInput } from '../components/peek-password-input';
+import { login, registerUser } from '../api/services/auth.service';
 
-type RegisterUserFormState = {
+export type RegisterUserFormState = {
   username: string;
-  password: string;
   firstName: string;
   lastName: string;
   timezoneId: string;
@@ -24,16 +19,22 @@ export function RegisterUserPage() {
   const [registerUserForm, setRegisterUserForm] =
     createStore<RegisterUserFormState>({
       username: '',
-      password: '',
       firstName: '',
       lastName: '',
       timezoneId: '',
     });
+  const [password, setPassword] = createSignal('');
 
-  function handleSubmit(e: Event) {
+  async function handleSubmit(e: Event) {
     e.preventDefault();
-
+    await registerUser({ ...registerUserForm, password: password() });
     setShowModal(true);
+    // Timeout for 3 seconds
+    // TODO: timeout for 3 seconds then sign them in
+    await login({
+      username: registerUserForm.firstName,
+      password: password(),
+    });
   }
 
   return (
@@ -69,11 +70,11 @@ export function RegisterUserPage() {
                       class="w-full rounded-xl border-2 border-gray-200 bg-white px-4 py-3 text-gray-900 placeholder-gray-500 transition-all focus:border-blue-500 focus:ring-2 focus:ring-blue-200 focus:outline-none"
                       required
                     />
-                    {/*<PeekPasswordInput
-                  id="password"
-                  placeholder="Password"
-                  setPassword={setPassword}
-                />*/}
+                    <PeekPasswordInput
+                      id="password"
+                      placeholder="Password"
+                      setPassword={setPassword}
+                    />
                   </div>
 
                   {/* Personal Details Section */}
