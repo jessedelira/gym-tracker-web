@@ -5,6 +5,7 @@ import { WorkoutCompletionMap } from '../types/workout-completion-map';
 interface WorkoutListProps {
   activeSession: ActiveSession;
   workoutsForActiveSession: Workout[];
+  // eslint-disable-next-line no-unused-vars
   handleCheckboxChange: (event: Event) => void;
   handleCompleteSessionClick: () => Promise<void>;
   isEveryWorkoutComplete: boolean;
@@ -56,7 +57,7 @@ export function ActiveSessionWorkoutView(props: WorkoutListProps) {
           <div class="z-20 mb-20 p-4">
             <div class="mx-auto w-[90%] max-w-md">
               <button
-                onClick={() => void handleCompleteSessionClick()}
+                onClick={() => void props.handleCompleteSessionClick()}
                 class="w-full rounded-xl bg-green-600 px-4 py-4 text-sm font-medium text-white transition-colors"
               >
                 Complete Workout Session

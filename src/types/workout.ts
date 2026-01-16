@@ -9,5 +9,6 @@ export type Workout = {
   exerciseId: string;
   sessionId: string;
   userId: string;
-  exercise?: Exercise;
+  exercise: Exercise;
+  isCompletedWhileActive: boolean | null;
 };

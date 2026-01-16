@@ -1,1 +1,5 @@
-export type ExerciseType = 'WEIGHTED' | 'DURATION';
+/* eslint-disable no-unused-vars */
+export enum ExerciseType {
+  WEIGHTED = 'WEIGHTED',
+  DURATION = 'DURATION',
+}

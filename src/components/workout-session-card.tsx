@@ -4,7 +4,7 @@ import { Session } from '../types/session';
 interface WorkoutSessionCardProps {
   session: Session;
   listOfCompletedSessionIds: string[];
-
+  // eslint-disable-next-line no-unused-vars
   onStartSession: (sessionId: string) => void;
 }
 
@@ -18,7 +18,7 @@ export function WorkoutSessionCard(props: WorkoutSessionCardProps) {
   );
 
   return (
-    <div class="rounded-lg border border-gray-200 bg-white p-4 shadow-sm">
+    <div class="w-11/12 rounded-lg border border-gray-200 bg-white p-4 shadow-sm">
       <div class="mb-2">
         <h2 class="text-lg font-medium text-gray-900">{props.session.name}</h2>
         {props.session.description && (
