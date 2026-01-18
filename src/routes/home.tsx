@@ -1,6 +1,9 @@
-import { createMemo, createResource, For, JSX, Match, Switch } from 'solid-js';
+import { createMemo, createResource, For, Match, Switch } from 'solid-js';
 import { fetchActiveSession } from '../api/services/active-session.service';
-import { fetchCompletedSessionIdsForCurrentDay } from '../api/services/completed-session.service';
+import {
+  completeActiveSession,
+  fetchCompletedSessionIdsForCurrentDay,
+} from '../api/services/completed-session.service';
 import {
   fetchActiveRoutine,
   fetchRoutineCount,
@@ -9,12 +12,17 @@ import {
   fetchSessionsForCurrentDay,
   startSession,
 } from '../api/services/session.service';
-import { fetchWorkoutsForActiveSession } from '../api/services/workout.service';
+import {
+  fetchWorkoutsForActiveSession,
+  setWorkoutToCompleteBasedOnValue,
+} from '../api/services/workout.service';
 import { ActiveSessionWorkoutList } from '../components/active-session-workout-list';
 import { LoadingSpinner } from '../components/loading-spinner';
 import { NoActiveRoutineView } from '../components/no-active-routine-view';
 import { WelcomeNewUserView } from '../components/welcome-new-user-view';
 import { WorkoutSessionCard } from '../components/workout-session-card';
+import { Workout } from '../types/workout';
+import { showConfetti } from '../utils/confetti';
 
 export function Home() {
   // Resources
@@ -29,10 +37,8 @@ export function Home() {
   );
   const activeSessionValue = createMemo(() => activeSession());
 
-  const [workoutsForActiveSession, { mutate: mutateWorkoutsForActiveSession }] = createResource(
-    activeSessionValue,
-    fetchWorkoutsForActiveSession,
-  );
+  const [workoutsForActiveSession, { mutate: mutateWorkoutsForActiveSession }] =
+    createResource(activeSessionValue, fetchWorkoutsForActiveSession);
 
   const enableFetchSessionsForCurrentDayAndCompletedSessionIds = createMemo(
     () => !activeSession() && !!activeRoutine(),
@@ -43,10 +49,11 @@ export function Home() {
     fetchSessionsForCurrentDay,
   );
 
-  const [completedSessionIds] = createResource(
-    enableFetchSessionsForCurrentDayAndCompletedSessionIds,
-    fetchCompletedSessionIdsForCurrentDay,
-  );
+  const [completedSessionIds, { refetch: refetchCompletedSessionIds }] =
+    createResource(
+      enableFetchSessionsForCurrentDayAndCompletedSessionIds,
+      fetchCompletedSessionIdsForCurrentDay,
+    );
 
   // Memo for loading data
   const isLoading = createMemo(
@@ -82,9 +89,9 @@ export function Home() {
   const availableSessionsData = createMemo(() => {
     if (activeRoutine() && sessionsForCurrentDay() && !activeSession()) {
       return {
-        routin: activeRoutine(),
+        routine: activeRoutine(),
         sessions: sessionsForCurrentDay(),
-        completedIds: completedSessionIds()?.map((s) => s.id) ?? [],
+        completedIds: completedSessionIds(),
       };
     }
     return null;
@@ -122,35 +129,45 @@ export function Home() {
     await refetchActiveSession();
   }
 
-  function handleCheckboxChange(event: Event & { currentTarget: HTMLInputElement }) {
-    
-    /**
-     * If the workout is completed then go back to setting it false and send network request
-     * If the workout is NOT compelted then set to true and send network request
-     * 
-     * const [posts, { refetch, mutate }] = createResource(fetchPosts);
-     *
-     * Manual refetch
-     * await refetch();
-     *
-     * Optimistic update
-     * mutate((posts) => [...posts, newPost]);
-     */
-    
-    
-    
-    
-    console.log(event.currentTarget.value);
-    console.log('here in the handleCheckboxChange');
+  function handleCheckboxChange(
+    event: Event & { currentTarget: HTMLInputElement },
+  ) {
+    const currentTargetTag = event.currentTarget;
+    const workoutId = currentTargetTag.id;
+    const isCheckboxChecked = event.currentTarget.checked;
+
+    let workoutsToBeMutated: Workout[];
+
+    if (isCheckboxChecked) {
+      setWorkoutToCompleteBasedOnValue(workoutId, isCheckboxChecked);
+      workoutsToBeMutated = workoutsForActiveSession()!.map((workout) => {
+        if (workout.id === workoutId) {
+          workout.isCompletedWhileActive = true;
+          return workout;
+        } else {
+          return workout;
+        }
+      });
+    } else {
+      setWorkoutToCompleteBasedOnValue(workoutId, isCheckboxChecked);
+      workoutsToBeMutated = workoutsForActiveSession()!.map((workout) => {
+        if (workout.id === workoutId) {
+          workout.isCompletedWhileActive = false;
+          return workout;
+        } else {
+          return workout;
+        }
+      });
+    }
+
+    mutateWorkoutsForActiveSession(workoutsToBeMutated);
   }
 
-  function handleCompleteSessionClick() {
-    /**
-     1. You will need to call the API (async)
-     2. refetch all endpoints to show the other things
-     3. You will do JS-confetti to show confetti to the user
-    */
-    console.log('you finished your workout!!');
+  async function handleCompleteSessionClick() {
+    await completeActiveSession(activeSession()?.sessionId ?? '');
+    void showConfetti();
+    await refetchActiveSession();
+    await refetchCompletedSessionIds();
   }
 
   return (
@@ -179,7 +196,7 @@ export function Home() {
                 {(session) => (
                   <WorkoutSessionCard
                     session={session}
-                    listOfCompletedSessionIds={data().completedIds}
+                    listOfCompletedSessionIds={data().completedIds ?? []}
                     onStartSession={() => handleStartSessionClick(session.id)}
                   />
                 )}

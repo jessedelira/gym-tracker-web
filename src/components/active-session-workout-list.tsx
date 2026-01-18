@@ -7,8 +7,8 @@ import { WorkoutCard } from './workout-card';
 interface ActiveSessionWorkoutListProps {
   activeSession: ActiveSession;
   workoutsForActiveSession: Workout[];
-  // eslint-disable-next-line no-unused-vars, no-undef
   handleCheckboxChange: (
+    // eslint-disable-next-line no-unused-vars
     event: Event & { currentTarget: HTMLInputElement },
   ) => void;
   handleCompleteSessionClick: () => void;
@@ -16,11 +16,6 @@ interface ActiveSessionWorkoutListProps {
 }
 
 export function ActiveSessionWorkoutList(props: ActiveSessionWorkoutListProps) {
-  function onChangeHandler(event: Event) {
-    console.log(`event: ${event}`);
-    console.log('you triggered the onChangeHandler');
-  }
-
   return (
     <div class="flex min-h-[calc(100vh-76px)] w-full flex-col items-center bg-gray-50">
       <div class="w-full flex-1 flex-col px-4">
@@ -41,7 +36,7 @@ export function ActiveSessionWorkoutList(props: ActiveSessionWorkoutListProps) {
               <WorkoutCard
                 workoutId={workout.id}
                 exerciseName={workout.exercise.name}
-                onChangeHandler={onChangeHandler}
+                onChangeHandler={props.handleCheckboxChange}
                 sets={workout.sets}
                 weightInLbs={workout.weightLbs}
                 reps={workout.reps}

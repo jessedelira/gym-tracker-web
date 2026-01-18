@@ -1,4 +1,3 @@
-import { JSX } from 'solid-js';
 import { ExerciseType } from '../types/exercise-type';
 
 interface WorkoutCardProps {
@@ -47,7 +46,6 @@ export function WorkoutCard(props: WorkoutCardProps) {
             checked={props.isChecked ?? false}
             class="h-5 w-5 rounded-md border-gray-300 text-blue-600 focus:ring-blue-500"
             onChange={(e) => props.onChangeHandler(e)}
-            
           />
         </div>
       </div>

@@ -13,9 +13,9 @@ export function WorkoutSessionCard(props: WorkoutSessionCardProps) {
     void props.onStartSession(props.session.id);
   }
 
-  const isCompleted = createMemo(() =>
-    props.listOfCompletedSessionIds?.includes(props.session.id),
-  );
+  const isCompleted = createMemo(() => {
+    return props.listOfCompletedSessionIds?.includes(props.session.id);
+  });
 
   return (
     <div class="w-11/12 rounded-lg border border-gray-200 bg-white p-4 shadow-sm">
