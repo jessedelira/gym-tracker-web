@@ -1,4 +1,4 @@
-import { For } from 'solid-js';
+import { Accessor, For } from 'solid-js';
 import { ActiveSession } from '../types/active-session';
 import { Workout } from '../types/workout';
 import { ActiveSessionElapsedTimer } from './active-session-elapsed-timer';
@@ -12,7 +12,7 @@ interface ActiveSessionWorkoutListProps {
     event: Event & { currentTarget: HTMLInputElement },
   ) => void;
   handleCompleteSessionClick: () => void;
-  isEveryWorkoutComplete: boolean; // TODO: could create a memoized value
+  isEveryWorkoutComplete: Accessor<boolean>;
 }
 
 export function ActiveSessionWorkoutList(props: ActiveSessionWorkoutListProps) {
@@ -50,7 +50,7 @@ export function ActiveSessionWorkoutList(props: ActiveSessionWorkoutListProps) {
 
         <div
           class={`fixed inset-x-0 bottom-0 z-20 transform transition-all duration-300 ${
-            props.isEveryWorkoutComplete
+            props.isEveryWorkoutComplete()
               ? 'translate-y-0 opacity-100'
               : 'pointer-events-none translate-y-full opacity-0'
           }`}

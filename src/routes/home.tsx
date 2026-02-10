@@ -26,39 +26,39 @@ import { showConfetti } from '../utils/confetti';
 
 export function Home() {
   // Resources
-  const [routineCount] = createResource(fetchRoutineCount);
-  const routineCountValue = createMemo(() => routineCount()?.count);
-  const [activeRoutine] = createResource(routineCountValue, fetchActiveRoutine);
-  const activeRoutineValue = createMemo(() => activeRoutine());
+  const [routineStats] = createResource(fetchRoutineCount);
+
+  const [activeRoutine] = createResource(
+    () => routineStats()?.count || undefined,
+    fetchActiveRoutine,
+  );
 
   const [activeSession, { refetch: refetchActiveSession }] = createResource(
-    activeRoutineValue,
+    () => activeRoutine() || undefined,
     fetchActiveSession,
   );
-  const activeSessionValue = createMemo(() => activeSession());
 
   const [workoutsForActiveSession, { mutate: mutateWorkoutsForActiveSession }] =
-    createResource(activeSessionValue, fetchWorkoutsForActiveSession);
-
-  const enableFetchSessionsForCurrentDayAndCompletedSessionIds = createMemo(
-    () => !activeSession() && !!activeRoutine(),
-  );
+    createResource(
+      () => activeSession() || undefined,
+      fetchWorkoutsForActiveSession,
+    );
 
   const [sessionsForCurrentDay] = createResource(
-    enableFetchSessionsForCurrentDayAndCompletedSessionIds,
+    () => (!activeSession() && !!activeRoutine()) || undefined,
     fetchSessionsForCurrentDay,
   );
 
   const [completedSessionIds, { refetch: refetchCompletedSessionIds }] =
     createResource(
-      enableFetchSessionsForCurrentDayAndCompletedSessionIds,
+      () => (!activeSession() && !!activeRoutine()) || undefined,
       fetchCompletedSessionIdsForCurrentDay,
     );
 
   // Memo for loading data
   const isLoading = createMemo(
     () =>
-      routineCount.loading ||
+      routineStats.loading ||
       activeRoutine.loading ||
       activeSession.loading ||
       workoutsForActiveSession.loading ||
@@ -66,9 +66,7 @@ export function Home() {
       completedSessionIds.loading,
   );
 
-  const isNewUser = createMemo(() => {
-    return routineCount() && routineCount()?.count === 0;
-  });
+  const isNewUser = createMemo(() => routineStats()?.count === 0);
 
   const hasNoActiveRoutine = createMemo(() => {
     return !activeRoutine() && !isNewUser();
@@ -111,12 +109,14 @@ export function Home() {
   });
 
   const isEveryWorkoutComplete = createMemo(() => {
+    const workouts = workoutsForActiveSession();
+
+    if (!workouts) return false;
     if (
       workoutsForActiveSession.loading === false &&
       workoutsForActiveSession()
     ) {
-      return workoutsForActiveSession()!.every(
-        // how to fix the workoutsForActiveSession being possibley undefined?
+      return workouts.every(
         (workout) => workout.isCompletedWhileActive === true,
       );
     }
@@ -135,12 +135,14 @@ export function Home() {
     const currentTargetTag = event.currentTarget;
     const workoutId = currentTargetTag.id;
     const isCheckboxChecked = event.currentTarget.checked;
+    const workouts = workoutsForActiveSession();
+    if (!workouts) return;
 
     let workoutsToBeMutated: Workout[];
 
     if (isCheckboxChecked) {
       setWorkoutToCompleteBasedOnValue(workoutId, isCheckboxChecked);
-      workoutsToBeMutated = workoutsForActiveSession()!.map((workout) => {
+      workoutsToBeMutated = workouts.map((workout) => {
         if (workout.id === workoutId) {
           workout.isCompletedWhileActive = true;
           return workout;
@@ -150,7 +152,7 @@ export function Home() {
       });
     } else {
       setWorkoutToCompleteBasedOnValue(workoutId, isCheckboxChecked);
-      workoutsToBeMutated = workoutsForActiveSession()!.map((workout) => {
+      workoutsToBeMutated = workouts.map((workout) => {
         if (workout.id === workoutId) {
           workout.isCompletedWhileActive = false;
           return workout;
@@ -164,7 +166,10 @@ export function Home() {
   }
 
   async function handleCompleteSessionClick() {
-    await completeActiveSession(activeSession()?.sessionId ?? '');
+    const activeSess = activeSession();
+    if (!activeSess) return;
+
+    await completeActiveSession(activeSess.sessionId);
     void showConfetti();
     await refetchActiveSession();
     await refetchCompletedSessionIds();
@@ -211,7 +216,7 @@ export function Home() {
               workoutsForActiveSession={data().workouts}
               handleCheckboxChange={handleCheckboxChange}
               handleCompleteSessionClick={handleCompleteSessionClick}
-              isEveryWorkoutComplete={isEveryWorkoutComplete()}
+              isEveryWorkoutComplete={isEveryWorkoutComplete}
             />
           )}
         </Match>

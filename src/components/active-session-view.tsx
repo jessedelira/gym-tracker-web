@@ -1,6 +1,8 @@
+import { Accessor } from 'solid-js';
 import { ActiveSession } from '../types/active-session';
 import { Workout } from '../types/workout';
 import { WorkoutCompletionMap } from '../types/workout-completion-map';
+import { ActiveSessionElapsedTimer } from './active-session-elapsed-timer';
 
 interface WorkoutListProps {
   activeSession: ActiveSession;
@@ -8,7 +10,7 @@ interface WorkoutListProps {
   // eslint-disable-next-line no-unused-vars
   handleCheckboxChange: (event: Event) => void;
   handleCompleteSessionClick: () => Promise<void>;
-  isEveryWorkoutComplete: boolean;
+  isEveryWorkoutComplete: Accessor<boolean>;
   workoutProgressMap: WorkoutCompletionMap;
 }
 
@@ -22,8 +24,8 @@ export function ActiveSessionWorkoutView(props: WorkoutListProps) {
             {props.activeSession?.session?.name}
           </h1>
           {props.activeSession?.startedAt && (
-            <CurrentSessionElapsedTimer
-              startedAtDate={new Date(activeSession.startedAt)}
+            <ActiveSessionElapsedTimer
+              startedAtDate={new Date(props.activeSession.startedAt)}
             />
           )}
         </div>
@@ -49,7 +51,7 @@ export function ActiveSessionWorkoutView(props: WorkoutListProps) {
         {/* Complete session button (visible only when all workouts complete) */}
         <div
           class={`fixed inset-x-0 bottom-0 z-20 transform transition-all duration-300 ${
-            isEveryWorkoutComplete
+            props.isEveryWorkoutComplete()
               ? 'translate-y-0 opacity-100'
               : 'pointer-events-none translate-y-full opacity-0'
           }`}
