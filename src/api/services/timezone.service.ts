@@ -8,5 +8,5 @@ import { api } from '../api';
 export async function fetchAllTimezones() {
   const { data } = await api.get<TimezoneMap[]>('/timezone');
 
-  if (data) return data;
+  return data;
 }

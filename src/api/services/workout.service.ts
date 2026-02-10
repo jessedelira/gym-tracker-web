@@ -5,15 +5,11 @@ import { api } from '../api';
 export async function fetchWorkoutsForActiveSession(
   activeSession: ActiveSession,
 ) {
-  if (activeSession) {
-    const { data } = await api.get<Workout[]>(
-      `workout/session/${activeSession.sessionId}`,
-    );
+  const { data } = await api.get<Workout[]>(
+    `workout/session/${activeSession.sessionId}`,
+  );
 
-    if (data) return data;
-  } else {
-    return;
-  }
+  return data;
 }
 
 export function setWorkoutToCompleteBasedOnValue(
