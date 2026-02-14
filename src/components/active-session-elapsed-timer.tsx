@@ -1,14 +1,12 @@
-import { createEffect, createSignal } from 'solid-js';
+import { createEffect, createSignal, onCleanup } from 'solid-js';
 import { useAuth } from '../contexts/auth-context';
 import { Preference } from '../types/preference';
 
-type CurrentSessionElapsedTimerProps = {
+type Props = {
   startedAtDate: Date;
 };
 
-export function ActiveSessionElapsedTimer(
-  props: CurrentSessionElapsedTimerProps,
-) {
+export function ActiveSessionElapsedTimer(props: Props) {
   const [elapsedMinutes, setElapsedMinutes] = createSignal('0');
   const [elapsedSeconds, setElapsedSeconds] = createSignal('0');
 
@@ -30,9 +28,10 @@ export function ActiveSessionElapsedTimer(
     };
 
     updateElapsedTime();
-    const interval = setInterval(updateElapsedTime, 1000);
+    const intervalToSetElapsedTime = setInterval(updateElapsedTime, 1000);
 
-    return () => clearInterval(interval);
+    // Called to not call updateElapsedTime after component is no longer on page
+    onCleanup(() => clearInterval(intervalToSetElapsedTime));
   });
 
   const showSeconds =
@@ -44,7 +43,7 @@ export function ActiveSessionElapsedTimer(
 
   return (
     <h2 class="text-[#666666]">
-      Elapsed time: {elapsedMinutes()} min
+      Elapsed time: {elapsedMinutes()} min{' '}
       {showSeconds ? ` ${elapsedSeconds()} sec` : ''}
     </h2>
   );

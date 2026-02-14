@@ -11,6 +11,7 @@ import { Layout } from './components/layout/layout';
 import { PublicOnly } from './components/auth-guards/public-only';
 import { Protected } from './components/auth-guards/protected';
 import { Settings } from './routes/settings';
+import { ManagePage } from './routes/manage';
 
 export function App() {
   return (
@@ -28,6 +29,7 @@ export function App() {
           <Route path="/" component={Protected}>
             <Route path="/home" component={Home} />
             <Route path="/settings" component={Settings} />
+            <Route path="/manage" component={ManagePage} />
           </Route>
 
           {/* Not Found */}
