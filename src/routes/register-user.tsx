@@ -1,10 +1,12 @@
 import { createResource, createSignal, For, Show } from 'solid-js';
 import { AccountCreatedModal } from '../components/modal/account-created-modal';
-import { A } from '@solidjs/router';
+import { A, useNavigate } from '@solidjs/router';
 import { fetchAllTimezones } from '../api/services/timezone.service';
 import { createStore } from 'solid-js/store';
 import { PeekPasswordInput } from '../components/peek-password-input';
 import { login, registerUser } from '../api/services/auth.service';
+import { useAuth } from '../contexts/auth-context';
+import { delay } from '../utils/delay';
 
 export type RegisterUserFormState = {
   username: string;
@@ -24,17 +26,24 @@ export function RegisterUserPage() {
       timezoneId: '',
     });
   const [password, setPassword] = createSignal('');
+  const navigate = useNavigate();
+  const { setUser } = useAuth();
 
   async function handleSubmit(e: Event) {
     e.preventDefault();
     await registerUser({ ...registerUserForm, password: password() });
     setShowModal(true);
-    // Timeout for 3 seconds
-    // TODO: timeout for 3 seconds then sign them in
-    await login({
+
+    await delay(3000);
+    const data = await login({
       username: registerUserForm.firstName,
       password: password(),
     });
+
+    if (data.success) {
+      setUser(data.user);
+      navigate('/home');
+    }
   }
 
   return (

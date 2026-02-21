@@ -2,10 +2,10 @@ import { A, useLocation } from '@solidjs/router';
 import { Icon } from 'solid-heroicons';
 import { cog_8Tooth, home, squaresPlus } from 'solid-heroicons/outline';
 
-type ValidRoutes = 'home' | 'training' | 'settings' | '';
+type ValidRoutes = 'home' | 'manage' | 'settings' | '';
 
 function isValidRoute(route: string): route is ValidRoutes {
-  return ['home', 'training', 'settings', ''].includes(route);
+  return ['home', 'manage', 'settings', ''].includes(route);
 }
 
 export default function NavigationBar() {
@@ -38,14 +38,14 @@ export default function NavigationBar() {
 
       {/* Manage */}
       <A
-        href="/training"
+        href="/manage"
         class={`flex flex-col items-center px-6 py-2 ${
-          currentURL() === 'training' ? 'text-black' : 'text-gray-500'
+          currentURL() === 'manage' ? 'text-black' : 'text-gray-500'
         }`}
       >
         <Icon
           path={squaresPlus}
-          class={`size-6 ${currentURL() === 'training' ? 'stroke-black' : ''}`}
+          class={`size-6 ${currentURL() === 'manage' ? 'stroke-black' : ''}`}
         />
 
         <span class="mt-1 text-xs font-medium">Manage</span>

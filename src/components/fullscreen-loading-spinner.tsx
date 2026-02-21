@@ -1,4 +1,4 @@
-export function LoadingSpinner() {
+export function FullScreenLoadingSpinner() {
   return (
     <div
       class="flex w-full items-center justify-center"

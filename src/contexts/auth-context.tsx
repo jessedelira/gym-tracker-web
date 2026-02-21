@@ -5,19 +5,19 @@ import type { User } from '../types/user';
 
 type VerifySessionResponseDto = {
   authenticated: boolean;
-  user: User | null;
+  user: User;
 };
 
 export type AuthContextType = {
-  user: Accessor<User | null>;
-  setUser: Setter<User | null>;
+  user: Accessor<User | undefined>;
+  setUser: Setter<User | undefined>;
   isUserLoading: Accessor<boolean>;
 };
 
 const AuthContext = createContext<AuthContextType>();
 
 export function AuthProvider(props: ParentProps) {
-  const [user, setUser] = createSignal<User | null>(null);
+  const [user, setUser] = createSignal<User>();
   const [isUserLoading, setIsUserLoading] = createSignal(true);
 
   async function fetchSession() {

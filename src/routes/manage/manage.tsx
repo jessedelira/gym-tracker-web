@@ -1,5 +1,6 @@
 import { createResource, Show } from 'solid-js';
-import { fetchActiveRoutine } from '../api/services/routine.service';
+import { fetchActiveRoutine } from '../../api/services/routine.service';
+import { ManagePageLink } from '../../components/manage-links/manage-page-links';
 
 export function ManagePage() {
   const [activeRoutine] = createResource(fetchActiveRoutine);
@@ -51,8 +52,7 @@ export function ManagePage() {
 
       {/* Management Options */}
       <div class="rounded-xl border border-gray-100 bg-white shadow-sm">
-        Where manage page links will be
-        {/*<ManagePageLink
+        <ManagePageLink
           href="/manage/routines"
           title="Manage Routines"
           description="Collection of sessions for your week"
@@ -62,7 +62,7 @@ export function ManagePage() {
           href="/manage/sessions"
           title="Manage Sessions"
           description="Workouts grouped by day"
-        />*/}
+        />
       </div>
 
       {/* Activity Graph */}

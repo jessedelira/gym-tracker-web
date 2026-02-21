@@ -1,12 +1,4 @@
-import {
-  createMemo,
-  createResource,
-  For,
-  Match,
-  Show,
-  Switch,
-  createSignal,
-} from 'solid-js';
+import { createMemo, createResource, For, Match, Switch } from 'solid-js';
 import { fetchActiveSession } from '../api/services/active-session.service';
 import {
   completeActiveSession,
@@ -25,12 +17,12 @@ import {
   setWorkoutToCompleteBasedOnValue,
 } from '../api/services/workout.service';
 import { ActiveSessionWorkoutList } from '../components/active-session-workout-list';
-import { LoadingSpinner } from '../components/loading-spinner';
 import { NoActiveRoutineView } from '../components/no-active-routine-view';
 import { WelcomeNewUserView } from '../components/welcome-new-user-view';
 import { WorkoutSessionCard } from '../components/workout-session-card';
 import { Workout } from '../types/workout';
 import { showConfetti } from '../utils/confetti';
+import { FullScreenLoadingSpinner } from '../components/fullscreen-loading-spinner';
 
 export function Home() {
   // Resources
@@ -187,7 +179,7 @@ export function Home() {
     <div class="flex h-fit flex-col items-center">
       <Switch>
         <Match when={isLoading()}>
-          <LoadingSpinner />
+          <FullScreenLoadingSpinner />
         </Match>
         <Match when={isNewUser()}>
           <WelcomeNewUserView />
