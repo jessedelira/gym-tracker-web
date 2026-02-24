@@ -40,7 +40,7 @@ export function RegisterUserPage() {
       password: password(),
     });
 
-    if (data.success) {
+    if (data.success && data.user) {
       setUser(data.user);
       navigate('/home');
     }

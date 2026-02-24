@@ -1,4 +1,4 @@
-import { createSignal } from 'solid-js';
+import { createSignal, Show } from 'solid-js';
 import { A } from '@solidjs/router';
 import { Icon } from 'solid-heroicons';
 import { xMark } from 'solid-heroicons/outline';
@@ -47,7 +47,7 @@ export function LoginPage() {
         {/* Form Card */}
         <form class="space-y-6" onSubmit={handleSignInSubmit}>
           {/* Error Message */}
-          {showErrorMessage() && (
+          <Show when={showErrorMessage()}>
             <div class="flex items-center justify-between rounded-xl bg-red-50 px-4 py-3 text-red-700">
               <p class="text-sm font-medium">Incorrect username or password</p>
               <button
@@ -58,7 +58,7 @@ export function LoginPage() {
                 <Icon path={xMark} class="size-4" />
               </button>
             </div>
-          )}
+          </Show>
           {/* Input Fields */}
           <div class="space-y-4 rounded-2xl bg-white p-8 shadow-sm">
             <input

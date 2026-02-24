@@ -19,7 +19,7 @@ export function Settings() {
 
   async function logout() {
     await api.post('/auth/logout');
-    setUser(null);
+    setUser(undefined);
     navigate('/');
   }
 
