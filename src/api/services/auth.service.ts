@@ -1,15 +1,16 @@
 import { User } from '../../types/user';
 import { api } from '../api';
 
-type LoginDto = {
+type LoginRequestDto = {
   username: string;
   password: string;
 };
 
-export type LoginResponseDto = {
+type LoginResponseDto = {
   success: boolean;
-  user: User | null;
-};
+  user?: User;
+  error?: string;
+}
 
 type RegisterUserDto = {
   username: string;
@@ -19,10 +20,14 @@ type RegisterUserDto = {
   timezoneId: string;
 };
 
-export async function login(loginDto: LoginDto) {
-  const { data } = await api.post<LoginResponseDto>('/auth/login', loginDto);
-
-  return data;
+export async function login(loginDto: LoginRequestDto): Promise<LoginResponseDto> {
+  try {
+    const { data } = await api.post<LoginResponseDto>('/auth/login', loginDto);
+    return data;
+  } catch (error) {
+    const message = error instanceof Error ? error.message : 'Login failed';
+    return { success: false, error: message }
+  }
 }
 
 export async function registerUser(registerUser: RegisterUserDto) {
