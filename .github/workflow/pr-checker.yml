@@ -1,0 +1,33 @@
+# Run checks on PRs
+
+name: PR Checker (Tests, Linting, Formatting)
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  pr-check-typescript:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+      - name: Set up Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+        
+      - name: Install dependencies
+        run: npm ci
+      - name: Run ESLint checks
+        run: npm run lint:check
+      - name: Run Prettier checks
+        run: npm run format:check
+      - name: Ensure build still succeeds
+        run: npm run build
