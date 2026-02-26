@@ -7,6 +7,7 @@ import globals from 'globals';
 export default defineConfig([
   js.configs.recommended,
   {
+    ignores: ['dist/'],
     files: ['**/*.{ts,tsx}'],
     ...solid,
     languageOptions: {
