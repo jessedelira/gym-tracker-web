@@ -1,6 +1,6 @@
-# Run checks on PRs
+# Run checks on PRs to 'main' branch
 
-name: Prettier Check
+name: Build Check
 
 on:
   pull_request:
@@ -11,7 +11,7 @@ permissions:
   pull-requests: write
 
 jobs:
-  pr-check-typescript:
+  Setup:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -22,5 +22,15 @@ jobs:
           node-version: '24'
       - name: Install dependencies
         run: npm ci
-      - name: Run Prettier checks
-        run: npm run format:check
+    Prettier:
+      steps:
+        - name: Run Prettier checks
+          run: npm run format:check
+    ESLint:
+      steps:
+        - name: Run ESLint checks
+          run: npm run lint:check
+    Build:
+      steps:
+        - name: Ensure build succeeds
+          run: npm run build
