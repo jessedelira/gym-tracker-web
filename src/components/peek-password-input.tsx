@@ -8,6 +8,7 @@ interface PasswordInputProps {
   id?: string;
   placeholder?: string;
   isRequired?: boolean;
+  minLength?: number;
   setPassword: SetStoreFunction<LoginForm>;
 }
 
@@ -20,6 +21,7 @@ export function PeekPasswordInput(props: PasswordInputProps) {
         id={props.id}
         placeholder={props.placeholder}
         required={props.isRequired}
+        minLength={props.minLength}
         onInput={(e) => {
           props.setPassword("password", e.target.value);
         }}

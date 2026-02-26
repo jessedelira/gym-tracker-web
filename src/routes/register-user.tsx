@@ -10,6 +10,7 @@ import { delay } from '../utils/delay';
 
 export type RegisterUserFormState = {
   username: string;
+  password: string;
   firstName: string;
   lastName: string;
   timezoneId: string;
@@ -21,23 +22,23 @@ export function RegisterUserPage() {
   const [registerUserForm, setRegisterUserForm] =
     createStore<RegisterUserFormState>({
       username: '',
+      password: '',
       firstName: '',
       lastName: '',
       timezoneId: '',
     });
-  const [password, setPassword] = createSignal('');
   const navigate = useNavigate();
   const { setUser } = useAuth();
 
-  async function handleSubmit(e: Event) {
+  async function handleSubmit(e: SubmitEvent) {
     e.preventDefault();
-    await registerUser({ ...registerUserForm, password: password() });
+    await registerUser(registerUserForm);
     setShowModal(true);
 
-    await delay(3000);
+    await delay(2500);
     const data = await login({
       username: registerUserForm.firstName,
-      password: password(),
+      password: registerUserForm.password
     });
 
     if (data.success && data.user) {
@@ -62,7 +63,7 @@ export function RegisterUserPage() {
                 </p>
               </div>
 
-              <form class="space-y-6" onSubmit={(e) => void handleSubmit(e)}>
+              <form class="space-y-6" onSubmit={handleSubmit}>
                 <div class="space-y-6 rounded-2xl bg-white p-8 shadow-sm">
                   {/* Account Details Section */}
                   <div class="space-y-4">
@@ -82,7 +83,9 @@ export function RegisterUserPage() {
                     <PeekPasswordInput
                       id="password"
                       placeholder="Password"
-                      setPassword={setPassword}
+                      minLength={8}
+                      isRequired={true}
+                      setPassword={setRegisterUserForm}
                     />
                   </div>
 
