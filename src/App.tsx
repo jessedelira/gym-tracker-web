@@ -33,12 +33,7 @@ export function App() {
             {/* Manage */}
             <Route path="/manage" component={ManagePage} />
             {/*<Route path="/manage/routines" component={ManageRoutines} />*/}
-          </Route
-          
-          
-          
-          
-          >
+          </Route>
 
           {/* Not Found */}
           <Route path="*" component={NotFound} />
