@@ -1,19 +1,19 @@
-# Run checks on PRs
+# Run checks on PRs to 'main' branch
 
-name: PR Checker (Tests, Linting, Formatting)
+name: ESLint
 
 on:
   pull_request:
+    branches: [main]
   push:
-    branches:
-      - main
+    branches: [main]
 
 permissions:
   contents: read
   pull-requests: write
 
 jobs:
-  pr-check-typescript:
+  eslint:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -26,7 +26,3 @@ jobs:
         run: npm ci
       - name: Run ESLint checks
         run: npm run lint:check
-      - name: Run Prettier checks
-        run: npm run format:check
-      - name: Ensure build still succeeds
-        run: npm run build

@@ -10,8 +10,8 @@
     "serve": "vite preview",
     "format": "prettier --write \"./**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
     "format:check": "prettier --check \"./**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
-    "lint:check": "eslint . --ext .ts",
-    "lint:fix": "eslint . --ext .ts --fix"
+    "lint:check": "eslint . --ignore-pattern 'dist/*' --ext .ts",
+    "lint:fix": "eslint . --ignore-pattern 'dist/*' --ext .ts --fix"
   },
   "license": "MIT",
   "devDependencies": {
