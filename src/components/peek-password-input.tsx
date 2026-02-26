@@ -23,7 +23,7 @@ export function PeekPasswordInput(props: PasswordInputProps) {
         required={props.isRequired}
         minLength={props.minLength}
         onInput={(e) => {
-          props.setPassword("password", e.target.value);
+          props.setPassword('password', e.target.value);
         }}
         class="w-full rounded-xl border-2 border-gray-200 bg-white px-4 py-3 text-gray-900 placeholder-gray-500 transition-all focus:border-blue-500 focus:ring-2 focus:ring-blue-200 focus:outline-none"
         type={isShow() ? 'text' : 'password'}

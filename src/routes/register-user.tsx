@@ -38,7 +38,7 @@ export function RegisterUserPage() {
     await delay(2500);
     const data = await login({
       username: registerUserForm.firstName,
-      password: registerUserForm.password
+      password: registerUserForm.password,
     });
 
     if (data.success && data.user) {

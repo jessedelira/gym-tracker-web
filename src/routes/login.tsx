@@ -10,13 +10,16 @@ import { useAuth } from '../contexts/auth-context';
 import { createStore } from 'solid-js/store';
 
 export type LoginForm = {
-  username: string
-  password: string
-}
+  username: string;
+  password: string;
+};
 
 export function LoginPage() {
   const [showErrorMessage, setShowErrorMessage] = createSignal(false);
-  const [loginForm, setLoginForm] = createStore<LoginForm>({ username: '', password: '' })
+  const [loginForm, setLoginForm] = createStore<LoginForm>({
+    username: '',
+    password: '',
+  });
   const navigate = useNavigate();
   const { setUser } = useAuth();
 
@@ -70,7 +73,7 @@ export function LoginPage() {
               type="text"
               placeholder="Username"
               id="username"
-              onInput={(e) => setLoginForm("username", e.currentTarget.value)}
+              onInput={(e) => setLoginForm('username', e.currentTarget.value)}
               class="w-full rounded-xl border-2 border-gray-200 bg-white px-4 py-3 text-gray-900 placeholder-gray-500 transition-all focus:border-blue-500 focus:ring-2 focus:ring-blue-200 focus:outline-none"
               required
             />
