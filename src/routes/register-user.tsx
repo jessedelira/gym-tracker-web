@@ -10,6 +10,7 @@ import { delay } from '../utils/delay';
 
 export type RegisterUserFormState = {
   username: string;
+  password: string;
   firstName: string;
   lastName: string;
   timezoneId: string;
@@ -21,23 +22,23 @@ export function RegisterUserPage() {
   const [registerUserForm, setRegisterUserForm] =
     createStore<RegisterUserFormState>({
       username: '',
+      password: '',
       firstName: '',
       lastName: '',
       timezoneId: '',
     });
-  const [password, setPassword] = createSignal('');
   const navigate = useNavigate();
   const { setUser } = useAuth();
 
-  async function handleSubmit(e: Event) {
+  async function handleSubmit(e: SubmitEvent) {
     e.preventDefault();
-    await registerUser({ ...registerUserForm, password: password() });
+    await registerUser(registerUserForm);
     setShowModal(true);
 
-    await delay(3000);
+    await delay(2500);
     const data = await login({
       username: registerUserForm.firstName,
-      password: password(),
+      password: registerUserForm.password,
     });
 
     if (data.success && data.user) {
@@ -62,7 +63,7 @@ export function RegisterUserPage() {
                 </p>
               </div>
 
-              <form class="space-y-6" onSubmit={(e) => void handleSubmit(e)}>
+              <form class="space-y-6" onSubmit={handleSubmit}>
                 <div class="space-y-6 rounded-2xl bg-white p-8 shadow-sm">
                   {/* Account Details Section */}
                   <div class="space-y-4">
@@ -82,37 +83,46 @@ export function RegisterUserPage() {
                     <PeekPasswordInput
                       id="password"
                       placeholder="Password"
-                      setPassword={setPassword}
+                      minLength={8}
+                      isRequired={true}
+                      setPassword={setRegisterUserForm}
                     />
                   </div>
 
                   {/* Personal Details Section */}
                   <div class="space-y-4">
                     <div class="flex gap-4">
-                      <input
-                        type="text"
-                        placeholder="First Name"
-                        id="firstName"
-                        onInput={(e) => {
-                          setRegisterUserForm((prev) => ({
-                            ...prev,
-                            firstName: e.target.value,
-                          }));
-                        }}
-                        class="w-full rounded-xl border-2 border-gray-200 bg-white px-4 py-3 text-gray-900 placeholder-gray-500 transition-all focus:border-blue-500 focus:ring-2 focus:ring-blue-200 focus:outline-none"
-                      />
-                      <input
-                        type="text"
-                        onInput={(e) =>
-                          setRegisterUserForm((prev) => ({
-                            ...prev,
-                            lastName: e.target.value,
-                          }))
-                        }
-                        placeholder="Last Name"
-                        id="lastName"
-                        class="w-full rounded-xl border-2 border-gray-200 bg-white px-4 py-3 text-gray-900 placeholder-gray-500 transition-all focus:border-blue-500 focus:ring-2 focus:ring-blue-200 focus:outline-none"
-                      />
+                      <div>
+                        <label class='text-sm text-gray-600'>Optional</label>
+
+                        <input
+                          type="text"
+                          placeholder="First Name"
+                          id="firstName"
+                          onInput={(e) => {
+                            setRegisterUserForm((prev) => ({
+                              ...prev,
+                              firstName: e.target.value,
+                            }));
+                          }}
+                          class="w-full rounded-xl border-2 border-gray-200 bg-white px-4 py-3 text-gray-900 placeholder-gray-500 transition-all focus:border-blue-500 focus:ring-2 focus:ring-blue-200 focus:outline-none"
+                        />
+                      </div>
+                      <div>
+                        <label class='text-sm text-gray-600'>Optional</label>
+                        <input
+                          type="text"
+                          onInput={(e) =>
+                            setRegisterUserForm((prev) => ({
+                              ...prev,
+                              lastName: e.target.value,
+                            }))
+                          }
+                          placeholder="Last Name"
+                          id="lastName"
+                          class="w-full rounded-xl border-2 border-gray-200 bg-white px-4 py-3 text-gray-900 placeholder-gray-500 transition-all focus:border-blue-500 focus:ring-2 focus:ring-blue-200 focus:outline-none"
+                        />
+                      </div>
                     </div>
                     <select
                       id="timezone"

@@ -7,17 +7,25 @@ import { login } from '../api/services/auth.service';
 
 import { useNavigate } from '@solidjs/router';
 import { useAuth } from '../contexts/auth-context';
+import { createStore } from 'solid-js/store';
+
+export type LoginForm = {
+  username: string;
+  password: string;
+};
 
 export function LoginPage() {
   const [showErrorMessage, setShowErrorMessage] = createSignal(false);
-  const [username, setUsername] = createSignal('');
-  const [password, setPassword] = createSignal('');
+  const [loginForm, setLoginForm] = createStore<LoginForm>({
+    username: '',
+    password: '',
+  });
   const navigate = useNavigate();
   const { setUser } = useAuth();
 
   async function handleSignInSubmit(e: SubmitEvent) {
     e.preventDefault();
-    const data = await login({ username: username(), password: password() });
+    const data = await login(loginForm);
 
     if (data.success) {
       setUser(data.user);
@@ -65,14 +73,14 @@ export function LoginPage() {
               type="text"
               placeholder="Username"
               id="username"
-              onInput={(e) => setUsername(e.currentTarget.value)}
+              onInput={(e) => setLoginForm('username', e.currentTarget.value)}
               class="w-full rounded-xl border-2 border-gray-200 bg-white px-4 py-3 text-gray-900 placeholder-gray-500 transition-all focus:border-blue-500 focus:ring-2 focus:ring-blue-200 focus:outline-none"
               required
             />
             <PeekPasswordInput
               id="password"
               placeholder="Password"
-              setPassword={setPassword}
+              setPassword={setLoginForm}
               isRequired
             />
           </div>

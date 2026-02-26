@@ -10,7 +10,7 @@ type LoginResponseDto = {
   success: boolean;
   user?: User;
   error?: string;
-}
+};
 
 type RegisterUserDto = {
   username: string;
@@ -20,13 +20,15 @@ type RegisterUserDto = {
   timezoneId: string;
 };
 
-export async function login(loginDto: LoginRequestDto): Promise<LoginResponseDto> {
+export async function login(
+  loginDto: LoginRequestDto,
+): Promise<LoginResponseDto> {
   try {
     const { data } = await api.post<LoginResponseDto>('/auth/login', loginDto);
     return data;
   } catch (error) {
     const message = error instanceof Error ? error.message : 'Login failed';
-    return { success: false, error: message }
+    return { success: false, error: message };
   }
 }
 
