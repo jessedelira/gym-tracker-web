@@ -1,12 +1,15 @@
-import { createSignal, Setter } from 'solid-js';
+import { createSignal } from 'solid-js';
 import { Icon } from 'solid-heroicons';
 import { eyeSlash, eye } from 'solid-heroicons/outline';
+import { SetStoreFunction } from 'solid-js/store';
+import { LoginForm } from '../routes/login';
 
 interface PasswordInputProps {
   id?: string;
   placeholder?: string;
   isRequired?: boolean;
-  setPassword: Setter<string>;
+  minLength?: number;
+  setPassword: SetStoreFunction<LoginForm>;
 }
 
 export function PeekPasswordInput(props: PasswordInputProps) {
@@ -18,8 +21,9 @@ export function PeekPasswordInput(props: PasswordInputProps) {
         id={props.id}
         placeholder={props.placeholder}
         required={props.isRequired}
+        minLength={props.minLength}
         onInput={(e) => {
-          props.setPassword(e.target.value);
+          props.setPassword('password', e.target.value);
         }}
         class="w-full rounded-xl border-2 border-gray-200 bg-white px-4 py-3 text-gray-900 placeholder-gray-500 transition-all focus:border-blue-500 focus:ring-2 focus:ring-blue-200 focus:outline-none"
         type={isShow() ? 'text' : 'password'}

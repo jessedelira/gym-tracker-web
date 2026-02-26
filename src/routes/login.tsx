@@ -25,7 +25,7 @@ export function LoginPage() {
 
   async function handleSignInSubmit(e: SubmitEvent) {
     e.preventDefault();
-    const data = await login({ username: username(), password: password() });
+    const data = await login(loginForm);
 
     if (data.success) {
       setUser(data.user);

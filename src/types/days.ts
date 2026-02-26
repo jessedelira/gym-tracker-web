@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 export enum DayOfWeek {
   SUNDAY = 'SUNDAY',
   MONDAY = 'MONDAY',
