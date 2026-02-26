@@ -93,7 +93,7 @@ export function RegisterUserPage() {
                   <div class="space-y-4">
                     <div class="flex gap-4">
                       <div>
-                        <label class='text-sm text-gray-600'>Optional</label>
+                        <label class="text-sm text-gray-600">Optional</label>
 
                         <input
                           type="text"
@@ -109,7 +109,7 @@ export function RegisterUserPage() {
                         />
                       </div>
                       <div>
-                        <label class='text-sm text-gray-600'>Optional</label>
+                        <label class="text-sm text-gray-600">Optional</label>
                         <input
                           type="text"
                           onInput={(e) =>
