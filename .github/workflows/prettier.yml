@@ -1,6 +1,6 @@
 # Run checks on PRs
 
-name: PR Checker (Tests, Linting, Formatting)
+name: Prettier Check
 
 on:
   pull_request:
@@ -22,9 +22,5 @@ jobs:
           node-version: '24'
       - name: Install dependencies
         run: npm ci
-      - name: Run ESLint checks
-        run: npm run lint:check
       - name: Run Prettier checks
         run: npm run format:check
-      - name: Ensure build still succeeds
-        run: npm run build
