@@ -29,6 +29,7 @@
     "vite-plugin-solid": "^2.11.8"
   },
   "dependencies": {
+    "@modular-forms/solid": "^0.25.1",
     "@solidjs/router": "^0.15.4",
     "axios": "^1.13.2",
     "js-confetti": "^0.13.1",
