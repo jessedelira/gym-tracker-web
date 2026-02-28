@@ -11,7 +11,7 @@ import { InformationLandingCard } from '../components/landing/information-landin
 
 export function LandingPage() {
   return (
-    <main class="landing-page bg-gray-50">
+    <div class="landing-page bg-gray-50">
       <div class="mx-auto max-w-7xl px-4 pb-8 sm:px-6 lg:px-8">
         {/* Header */}
         <div class="flex flex-col items-center justify-center pt-24 pb-12">
@@ -95,6 +95,6 @@ export function LandingPage() {
           </p>
         </footer>
       </div>
-    </main>
+    </div>
   );
 }
