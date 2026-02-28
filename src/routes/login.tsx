@@ -40,7 +40,7 @@ export function LoginPage() {
   }
 
   return (
-    <main class="min-h-screen bg-gray-50 px-4">
+    <div class="min-h-screen bg-gray-50 px-4">
       <div class="mx-auto flex min-h-screen max-w-md flex-col justify-center py-16">
         {/* Header */}
         <div class="mb-8 text-center">
@@ -102,6 +102,6 @@ export function LoginPage() {
           </div>
         </form>
       </div>
-    </main>
+    </div>
   );
 }

@@ -52,7 +52,7 @@ export function RegisterUserPage() {
       <Show
         when={showModal()}
         fallback={
-          <main class="min-h-screen bg-gray-50 px-4">
+          <div class="min-h-screen bg-gray-50 px-4">
             <div class="mx-auto flex min-h-screen max-w-md flex-col justify-center py-16">
               <div class="mb-8 text-center">
                 <h1 class="text-3xl font-semibold tracking-tight text-gray-900">
@@ -165,7 +165,7 @@ export function RegisterUserPage() {
                 </div>
               </form>
             </div>
-          </main>
+          </div>
         }
       >
         <AccountCreatedModal />
